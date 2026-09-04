@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Delivery & Logistics Mapping - KrishiSanjivani</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚚</text></svg>">
+  <!-- Leaflet Maps CSS & JS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+<body>
+
+  <!-- Govt Banner -->
+  <header class="govt-banner-strip">
+    <div class="govt-banner-left">
+      <span class="govt-emblem-badge">SIH 2026</span>
+      <span>AI Route Optimization & Delivery Tracking</span>
+    </div>
+    <div class="govt-banner-right">
+      <span class="banner-pill">Logistics Helpline: 1800-180-1551</span>
+    </div>
+  </header>
+
+  <!-- Navbar -->
+  <nav class="main-navbar">
+    <div class="navbar-container">
+      <a href="../index.html" class="navbar-brand">
+        <div class="brand-icon">🌱</div>
+        <div class="brand-text-container">
+          <span class="brand-title">KrishiSanjivani</span>
+          <span class="brand-subtitle">कृषी संजीवनी पोर्टल</span>
+        </div>
+      </a>
+
+      <ul class="navbar-links">
+        <li class="nav-item"><a href="dashboard.html"><span class="nav-icon">🏠</span> Home</a></li>
+        <li class="nav-item"><a href="buy.html"><span class="nav-icon">🛒</span> Buy</a></li>
+        <li class="nav-item"><a href="sell.html"><span class="nav-icon">🌾</span> Sell</a></li>
+        <li class="nav-item"><a href="rent.html"><span class="nav-icon">🚜</span> Rent</a></li>
+        <li class="nav-item"><a href="schemes.html"><span class="nav-icon">📜</span> Schemes</a></li>
+        <li class="nav-item active"><a href="orders.html"><span class="nav-icon">📦</span> Orders</a></li>
+      </ul>
+
+      <div class="navbar-actions">
+        <select class="lang-selector-btn" onchange="window.i18n.setLanguage(this.value)">
+          <option value="en">🌐 EN</option>
+          <option value="hi">🇮🇳 HI</option>
+          <option value="mr">🚩 MR</option>
+        </select>
+        <a href="cart.html" class="cart-btn-link">🛒 <span class="cart-badge" id="cart-count">0</span></a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px;">
+      <div>
+        <h1 class="font-heading" style="font-size: 1.8rem; color: var(--primary-dark);">🚚 AI-Optimized Delivery Route & Live Map</h1>
+        <p style="color: var(--text-muted);" id="order-id-display">Order ID: KS-ORD-981240 | Assigned Logistics: Krishi Express Green Carrier</p>
+      </div>
+
+      <a id="download-invoice-btn" href="invoice.html" class="btn btn-secondary">
+        📄 Download Invoice PDF
+      </a>
+    </div>
+
+    <!-- AI Logistics Efficiency Summary Box -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 24px;">
+      
+      <div class="card" style="background: #F0FDF4; border-color: var(--border-green);">
+        <div style="font-size: 0.8rem; font-weight: 700; color: var(--primary-dark);">AI OPTIMIZATION SCORE</div>
+        <div style="font-size: 1.6rem; font-weight: 800; color: var(--primary-dark);" id="logistics-score">96% Efficient</div>
+        <div style="font-size: 0.8rem; color: var(--text-muted);">Shortest path computed</div>
+      </div>
+
+      <div class="card">
+        <div style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted);">DISTANCE SAVED</div>
+        <div style="font-size: 1.6rem; font-weight: 800; color: var(--secondary);" id="logistics-saved-km">42 Km Saved</div>
+        <div style="font-size: 0.8rem; color: var(--text-muted);">Vs middleman detour route</div>
+      </div>
+
+      <div class="card">
+        <div style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted);">ESTIMATED DELIVERY</div>
+        <div style="font-size: 1.6rem; font-weight: 800; color: var(--accent-blue);" id="logistics-eta">Tomorrow 4:00 PM</div>
+        <div style="font-size: 0.8rem; color: var(--text-muted);">Fresh produce guaranteed</div>
+      </div>
+
+    </div>
+
+    <!-- Leaflet OpenStreetMap Container -->
+    <div class="card" style="padding: 12px; margin-bottom: 24px;">
+      <h3 class="font-heading" style="margin-bottom: 12px;">🗺️ Live Optimized Route Map</h3>
+      <div id="route-map"></div>
+    </div>
+
+    <!-- Logistics Timeline Steps -->
+    <div class="card">
+      <h3 class="font-heading" style="margin-bottom: 16px;">📍 Logistics Transit Steps</h3>
+      
+      <div style="display: flex; flex-direction: column; gap: 14px;">
+        <div style="display: flex; gap: 14px; align-items: flex-start;">
+          <span style="font-size: 1.5rem; background: var(--primary-soft); padding: 8px; border-radius: 50%;">🌱</span>
+          <div>
+            <h4 style="color: var(--primary-dark);">Step 1: Farm Pickup (Mohol, Solapur)</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">Produce loaded directly from Ramesh Patil's farm with zero handling loss.</p>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 14px; align-items: flex-start;">
+          <span style="font-size: 1.5rem; background: var(--secondary-soft); padding: 8px; border-radius: 50%;">🏬</span>
+          <div>
+            <h4 style="color: var(--secondary-hover);">Step 2: Cold Transit Hub (Pandharpur)</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">Temperature controlled quality inspection and sorting.</p>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 14px; align-items: flex-start;">
+          <span style="font-size: 1.5rem; background: #E0F2FE; padding: 8px; border-radius: 50%;">🚚</span>
+          <div>
+            <h4 style="color: var(--accent-blue);">Step 3: Buyer Delivery Point (Pune)</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">Direct delivery to buyer doorstep with digital OTP confirmation.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="../js/firebase-config.js"></script>
+  <script src="../js/i18n.js"></script>
+  <script src="../js/store.js"></script>
+  <script src="../js/ai-engine.js"></script>
+  <script src="../js/map-helper.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('cart-count').innerText = window.store.getCartCount();
+
+      const params = new URLSearchParams(window.location.search);
+      const orderId = params.get('orderId') || "KS-ORD-981240";
+      document.getElementById('order-id-display').innerText = `Order ID: ${orderId} | Assigned Logistics: Krishi Express Carrier`;
+      document.getElementById('download-invoice-btn').href = `invoice.html?orderId=${orderId}`;
+
+      // Calculate AI Route
+      const route = window.aiEngine.calculateOptimalRoute();
+      document.getElementById('logistics-score').innerText = route.aiOptimizationScore;
+      document.getElementById('logistics-saved-km').innerText = `${route.distanceSavedKm} Km Saved`;
+
+      // Render Leaflet Map
+      window.mapHelper.initDeliveryMap('route-map', route);
+    });
+  </script>
+</body>
+</html>

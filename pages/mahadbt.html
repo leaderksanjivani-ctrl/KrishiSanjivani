@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MahaDBT Integration - KrishiSanjivani</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏛️</text></svg>">
+</head>
+<body>
+
+  <!-- Govt Banner -->
+  <header class="govt-banner-strip">
+    <div class="govt-banner-left">
+      <span class="govt-emblem-badge">SIH 2026</span>
+      <span>Government of Maharashtra MahaDBT Portal Integration</span>
+    </div>
+    <div class="govt-banner-right">
+      <span class="banner-pill">MahaDBT Helpline: 022-49150800</span>
+    </div>
+  </header>
+
+  <!-- Navbar -->
+  <nav class="main-navbar">
+    <div class="navbar-container">
+      <a href="../index.html" class="navbar-brand">
+        <div class="brand-icon">🌱</div>
+        <div class="brand-text-container">
+          <span class="brand-title">KrishiSanjivani</span>
+          <span class="brand-subtitle">कृषी संजीवनी पोर्टल</span>
+        </div>
+      </a>
+
+      <ul class="navbar-links">
+        <li class="nav-item"><a href="dashboard.html"><span class="nav-icon">🏠</span> Home</a></li>
+        <li class="nav-item"><a href="buy.html"><span class="nav-icon">🛒</span> Buy</a></li>
+        <li class="nav-item"><a href="sell.html"><span class="nav-icon">🌾</span> Sell</a></li>
+        <li class="nav-item"><a href="rent.html"><span class="nav-icon">🚜</span> Rent</a></li>
+        <li class="nav-item active"><a href="mahadbt.html"><span class="nav-icon">🏛️</span> MahaDBT</a></li>
+        <li class="nav-item"><a href="orders.html"><span class="nav-icon">📦</span> Orders</a></li>
+      </ul>
+
+      <div class="navbar-actions">
+        <select class="lang-selector-btn" onchange="window.i18n.setLanguage(this.value)">
+          <option value="en">🌐 EN</option>
+          <option value="hi">🇮🇳 HI</option>
+          <option value="mr">🚩 MR</option>
+        </select>
+        <a href="cart.html" class="cart-btn-link">🛒 <span class="cart-badge" id="cart-count">0</span></a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container" style="max-width: 860px;">
+    <div class="card" style="margin-bottom: 24px; box-shadow: var(--shadow-md);">
+      <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 16px;">
+        <span style="font-size: 3rem;">🏛️</span>
+        <div>
+          <h1 class="font-heading" style="font-size: 1.8rem; color: var(--primary-dark);">MahaDBT Maharashtra Subsidy Portal Guide</h1>
+          <p style="color: var(--text-muted);">Direct Benefit Transfer (DBT) for tractors, drip irrigation, and seed subsidies</p>
+        </div>
+      </div>
+
+      <div style="background: #F0FDF4; border: 1.5px solid var(--border-green); padding: 18px; border-radius: var(--radius-md); margin-bottom: 20px;">
+        <h3 style="color: var(--primary-dark); margin-bottom: 8px;">Key MahaDBT Agriculture Schemes Available:</h3>
+        <ul style="padding-left: 20px; line-height: 1.8; color: var(--text-main); font-size: 0.95rem;">
+          <li>🚜 <strong>Mechanization Scheme:</strong> 50% subsidy (up to ₹1.25 Lakh) on Tractors & Rotavators.</li>
+          <li>💧 <strong>Drip & Sprinkler Irrigation (POCRA):</strong> Up to 80% subsidy for small farmers.</li>
+          <li>🌱 <strong>Certified Seed Distribution:</strong> Direct subsidy credited to Bank Aadhaar account.</li>
+          <li>⚡ <strong>Solar Agriculture Pump (PM-KUSUM):</strong> 90% total combined subsidy.</li>
+        </ul>
+      </div>
+
+      <!-- Deep Link CTA -->
+      <div style="text-align: center; margin-top: 30px;">
+        <a href="https://mahadbt.maharashtra.gov.in/Farmer/Login/Login" target="_blank" class="btn btn-secondary btn-lg" style="padding: 18px 40px;">
+          🌐 Open Official MahaDBT Portal Application Link
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/firebase-config.js"></script>
+  <script src="../js/i18n.js"></script>
+  <script src="../js/store.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('cart-count').innerText = window.store.getCartCount();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Farm Equipment Rental - KrishiSanjivani</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚜</text></svg>">
+</head>
+<body>
+
+  <!-- Govt Banner -->
+  <header class="govt-banner-strip">
+    <div class="govt-banner-left">
+      <span class="govt-emblem-badge">SIH 2026</span>
+      <span>Smart India Hackathon 2026 Prototype</span>
+    </div>
+    <div class="govt-banner-right">
+      <span class="banner-pill">Farmer Helpline: 1800-180-1551</span>
+    </div>
+  </header>
+
+  <!-- Navbar -->
+  <nav class="main-navbar">
+    <div class="navbar-container">
+      <a href="../index.html" class="navbar-brand">
+        <div class="brand-icon">🌱</div>
+        <div class="brand-text-container">
+          <span class="brand-title">KrishiSanjivani</span>
+          <span class="brand-subtitle">कृषी संजीवनी पोर्टल</span>
+        </div>
+      </a>
+
+      <ul class="navbar-links">
+        <li class="nav-item"><a href="dashboard.html"><span class="nav-icon">🏠</span> Home</a></li>
+        <li class="nav-item"><a href="buy.html"><span class="nav-icon">🛒</span> Buy</a></li>
+        <li class="nav-item"><a href="sell.html"><span class="nav-icon">🌾</span> Sell</a></li>
+        <li class="nav-item active"><a href="rent.html"><span class="nav-icon">🚜</span> Rent</a></li>
+        <li class="nav-item"><a href="schemes.html"><span class="nav-icon">📜</span> Schemes</a></li>
+        <li class="nav-item"><a href="orders.html"><span class="nav-icon">📦</span> Orders</a></li>
+      </ul>
+
+      <div class="navbar-actions">
+        <select class="lang-selector-btn" onchange="window.i18n.setLanguage(this.value)">
+          <option value="en">🌐 EN</option>
+          <option value="hi">🇮🇳 HI</option>
+          <option value="mr">🚩 MR</option>
+        </select>
+        <a href="cart.html" class="cart-btn-link">🛒 <span class="cart-badge" id="cart-count">0</span></a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px;">
+      <div>
+        <h1 class="font-heading" style="font-size: 1.8rem; color: var(--primary-dark);">🚜 Farm Equipment & Drone Rental</h1>
+        <p style="color: var(--text-muted);">Rent modern tractors, harvesters, and spraying drones from nearby owners at low daily rates</p>
+      </div>
+
+      <button class="btn btn-secondary" onclick="alert('To list your equipment for rental, contact your local Custom Hiring Center (CHC) or call 1800-180-1551.')">
+        ➕ List Equipment to Rent Out
+      </button>
+    </div>
+
+    <!-- Equipment List -->
+    <div class="product-grid" id="equipment-grid">
+      <!-- Renders via JS -->
+    </div>
+  </div>
+
+  <!-- Booking Calendar Modal -->
+  <div id="booking-modal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 9999; align-items: center; justify-content: center; padding: 20px;">
+    <div class="card" style="max-width: 480px; width: 100%; box-shadow: var(--shadow-lg);">
+      <h3 class="font-heading" style="margin-bottom: 12px; color: var(--primary-dark);" id="modal-equip-title">Book Equipment</h3>
+      <p style="font-size: 0.875rem; color: var(--text-muted); margin-bottom: 16px;" id="modal-equip-owner">Owner: Custom Hiring Center</p>
+
+      <form onsubmit="handleEquipmentBooking(event)">
+        <div class="form-group">
+          <label class="form-label">Select Start Date</label>
+          <input type="date" id="book-start-date" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Rental Duration (Days)</label>
+          <input type="number" id="book-days" class="form-control" value="1" min="1" max="30" required onchange="calculateRentalTotal()">
+        </div>
+
+        <div style="background: #F8FAFC; border-radius: var(--radius-md); padding: 14px; margin: 16px 0;">
+          <div style="display: flex; justify-content: space-between; font-weight: 600;">
+            <span>Rate Per Day:</span> <span id="modal-rate-label">₹1200</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-weight: 800; font-size: 1.1rem; color: var(--primary-dark); margin-top: 6px;">
+            <span>Total Payable:</span> <span id="modal-total-label">₹1200</span>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 10px;">
+          <button type="submit" class="btn btn-secondary btn-block">Confirm Rental Booking</button>
+          <button type="button" class="btn btn-outline" onclick="closeBookingModal()">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="../js/firebase-config.js"></script>
+  <script src="../js/i18n.js"></script>
+  <script src="../js/store.js"></script>
+  <script src="../js/speech.js"></script>
+  <script>
+    let selectedEquip = null;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('cart-count').innerText = window.store.getCartCount();
+      renderEquipment();
+      document.getElementById('book-start-date').valueAsDate = new Date();
+    });
+
+    function renderEquipment() {
+      const items = window.store.getEquipment();
+      const grid = document.getElementById('equipment-grid');
+      
+      grid.innerHTML = items.map(eq => `
+        <div class="product-card">
+          <div class="product-img-wrapper">
+            <img src="${eq.photoURL}" alt="${eq.name}" class="product-img">
+            <span class="product-badge-overlay" style="background: var(--secondary); color: white; padding: 4px 10px; border-radius: var(--radius-pill); font-weight: 800; font-size: 0.75rem;">${eq.category}</span>
+            <span class="seller-location-badge">📍 ${eq.location}</span>
+          </div>
+          <div class="product-body">
+            <h3 class="product-title">${eq.name}</h3>
+            <p style="font-size: 0.825rem; color: var(--text-muted); height: 38px; overflow: hidden;">${eq.specs}</p>
+            <div style="font-size: 0.85rem; color: var(--primary-dark); font-weight: 600;">👤 Owner: ${eq.ownerName}</div>
+
+            <div class="product-price-section">
+              <div>
+                <span class="product-unit-price" style="color: var(--secondary);">₹${eq.rentPricePerDay}</span>
+                <span class="unit-label">/ Day</span>
+              </div>
+              <button class="btn btn-sm btn-secondary" onclick="openBookingModal('${eq.id}')">🚜 Book Now</button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function openBookingModal(id) {
+      selectedEquip = window.store.getEquipment().find(e => e.id === id);
+      if (!selectedEquip) return;
+
+      document.getElementById('modal-equip-title').innerText = `Book ${selectedEquip.name}`;
+      document.getElementById('modal-equip-owner').innerText = `Owner: ${selectedEquip.ownerName} (${selectedEquip.ownerPhone})`;
+      document.getElementById('modal-rate-label').innerText = `₹${selectedEquip.rentPricePerDay}`;
+      calculateRentalTotal();
+      document.getElementById('booking-modal').style.display = 'flex';
+    }
+
+    function calculateRentalTotal() {
+      if (!selectedEquip) return;
+      const days = Number(document.getElementById('book-days').value) || 1;
+      const total = selectedEquip.rentPricePerDay * days;
+      document.getElementById('modal-total-label').innerText = `₹${total}`;
+    }
+
+    function closeBookingModal() {
+      document.getElementById('booking-modal').style.display = 'none';
+    }
+
+    function handleEquipmentBooking(e) {
+      e.preventDefault();
+      const days = document.getElementById('book-days').value;
+      const date = document.getElementById('book-start-date').value;
+      alert(`🎉 Booking Confirmed for ${selectedEquip.name} starting ${date} for ${days} day(s)!\nOwner ${selectedEquip.ownerName} will contact you shortly at your registered phone number.`);
+      closeBookingModal();
+    }
+  </script>
+</body>
+</html>

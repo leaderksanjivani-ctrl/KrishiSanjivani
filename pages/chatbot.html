@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Krishi Mitra Assistant - KrishiSanjivani</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤖</text></svg>">
+</head>
+<body>
+
+  <!-- Govt Banner -->
+  <header class="govt-banner-strip">
+    <div class="govt-banner-left">
+      <span class="govt-emblem-badge">SIH 2026</span>
+      <span>Smart India Hackathon 2026 Prototype</span>
+    </div>
+    <div class="govt-banner-right">
+      <span class="banner-pill">Farmer Helpline: 1800-180-1551</span>
+    </div>
+  </header>
+
+  <!-- Navbar -->
+  <nav class="main-navbar">
+    <div class="navbar-container">
+      <a href="../index.html" class="navbar-brand">
+        <div class="brand-icon">🌱</div>
+        <div class="brand-text-container">
+          <span class="brand-title">KrishiSanjivani</span>
+          <span class="brand-subtitle">कृषी संजीवनी पोर्टल</span>
+        </div>
+      </a>
+
+      <ul class="navbar-links">
+        <li class="nav-item"><a href="dashboard.html"><span class="nav-icon">🏠</span> Home</a></li>
+        <li class="nav-item"><a href="buy.html"><span class="nav-icon">🛒</span> Buy</a></li>
+        <li class="nav-item"><a href="sell.html"><span class="nav-icon">🌾</span> Sell</a></li>
+        <li class="nav-item"><a href="rent.html"><span class="nav-icon">🚜</span> Rent</a></li>
+        <li class="nav-item"><a href="schemes.html"><span class="nav-icon">📜</span> Schemes</a></li>
+        <li class="nav-item"><a href="orders.html"><span class="nav-icon">📦</span> Orders</a></li>
+      </ul>
+
+      <div class="navbar-actions">
+        <select class="lang-selector-btn" onchange="window.i18n.setLanguage(this.value)">
+          <option value="en">🌐 EN</option>
+          <option value="hi">🇮🇳 HI</option>
+          <option value="mr">🚩 MR</option>
+        </select>
+        <a href="cart.html" class="cart-btn-link">🛒 <span class="cart-badge" id="cart-count">0</span></a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container" style="max-width: 800px;">
+    <div class="card" style="padding: 0; overflow: hidden; box-shadow: var(--shadow-lg);">
+      
+      <!-- Chatbot Header -->
+      <div style="background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%); color: white; padding: 20px; display: flex; align-items: center; justify-content: space-between;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <div style="width: 48px; height: 48px; border-radius: 50%; background: white; color: var(--primary-dark); display: flex; align-items: center; justify-content: center; font-size: 1.8rem;">🤖</div>
+          <div>
+            <h2 class="font-heading" style="color: white; font-size: 1.4rem;">Krishi Mitra AI Assistant</h2>
+            <p style="font-size: 0.825rem; color: #DCFCE7;">Online • Multi-lingual Crop, Scheme & Market Advisor</p>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 8px;">
+          <button class="btn btn-sm btn-outline" style="color: white; border-color: white;" onclick="speakLastResponse()">🔊 Read Out</button>
+        </div>
+      </div>
+
+      <!-- Quick Suggestion Pills for Farmers -->
+      <div style="background: #F8FAFC; padding: 12px 20px; border-bottom: 1px solid var(--border-light); display: flex; gap: 8px; overflow-x: auto; white-space: nowrap;">
+        <button class="btn btn-sm btn-outline" onclick="sendQuickPrompt('How to apply for PM-KISAN ₹6000?')">🌾 PM-KISAN Scheme</button>
+        <button class="btn btn-sm btn-outline" onclick="sendQuickPrompt('How to sell soybean produce directly?')">🌾 Sell Crop Direct</button>
+        <button class="btn btn-sm btn-outline" onclick="sendQuickPrompt('Pest spray advice for soybean crop')">🐛 Pest Advice</button>
+        <button class="btn btn-sm btn-outline" onclick="sendQuickPrompt('Weather forecast for Solapur')">☀️ Weather Today</button>
+      </div>
+
+      <!-- Chat History Box -->
+      <div id="chat-messages-container" style="height: 400px; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 16px; background: #F1F5F9;">
+        
+        <!-- Welcome Message -->
+        <div style="display: flex; gap: 10px; max-width: 80%;">
+          <div style="width: 36px; height: 36px; border-radius: 50%; background: var(--primary); color: white; display: flex; align-items: center; justify-content: center; font-size: 1.2rem;">🤖</div>
+          <div style="background: white; padding: 14px 18px; border-radius: 0 16px 16px 16px; box-shadow: var(--shadow-sm); font-size: 0.95rem;">
+            Namaste! I am your AI Krishi Mitra assistant. Ask me anything about crop prices, PM-KISAN schemes, pest control, or selling produce on KrishiSanjivani. You can also tap the mic button to speak!
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Chat Input Field -->
+      <div style="padding: 16px 20px; background: white; border-top: 1px solid var(--border-light); display: flex; gap: 10px; align-items: center;">
+        <div class="voice-input-wrapper" style="flex: 1;">
+          <input type="text" id="chat-input" class="form-control" placeholder="Ask Krishi Mitra AI (or tap mic to speak)..." onkeypress="if(event.key==='Enter') sendMessage()" style="border-radius: var(--radius-pill); padding-right: 50px;">
+          <button class="mic-btn-inside" onclick="window.speechHelper.startListening('chat-input', sendMessage)" title="Speak into chat">🎙️</button>
+        </div>
+        <button class="btn btn-primary" onclick="sendMessage()" style="border-radius: var(--radius-pill); padding: 14px 24px;">Send 🚀</button>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="../js/firebase-config.js"></script>
+  <script src="../js/i18n.js"></script>
+  <script src="../js/store.js"></script>
+  <script src="../js/speech.js"></script>
+  <script src="../js/ai-engine.js"></script>
+  <script>
+    let lastAiReplyText = "Namaste! I am your AI Krishi Mitra assistant.";
+
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('cart-count').innerText = window.store.getCartCount();
+    });
+
+    function sendMessage() {
+      const input = document.getElementById('chat-input');
+      const text = input.value.trim();
+      if (!text) return;
+
+      appendMessage('user', text);
+      input.value = '';
+
+      // AI Response processing
+      setTimeout(() => {
+        const response = window.aiEngine.queryChatbot(text);
+        lastAiReplyText = response.reply;
+        appendMessage('bot', response.reply, response.actionPage);
+      }, 400);
+    }
+
+    function sendQuickPrompt(prompt) {
+      document.getElementById('chat-input').value = prompt;
+      sendMessage();
+    }
+
+    function appendMessage(sender, text, actionPage = null) {
+      const container = document.getElementById('chat-messages-container');
+      const msgDiv = document.createElement('div');
+      msgDiv.style.display = 'flex';
+      msgDiv.style.gap = '10px';
+      msgDiv.style.maxWidth = '85%';
+
+      if (sender === 'user') {
+        msgDiv.style.marginLeft = 'auto';
+        msgDiv.style.flexDirection = 'row-reverse';
+        msgDiv.innerHTML = `
+          <div style="width: 36px; height: 36px; border-radius: 50%; background: var(--secondary); color: white; display: flex; align-items: center; justify-content: center; font-size: 1.1rem;">👤</div>
+          <div style="background: var(--primary-dark); color: white; padding: 12px 16px; border-radius: 16px 0 16px 16px; font-size: 0.95rem;">
+            ${text}
+          </div>
+        `;
+      } else {
+        let actionBtnHtml = actionPage ? `<div style="margin-top: 10px;"><a href="${actionPage}" class="btn btn-sm btn-secondary">Open Service Page →</a></div>` : '';
+        msgDiv.innerHTML = `
+          <div style="width: 36px; height: 36px; border-radius: 50%; background: var(--primary); color: white; display: flex; align-items: center; justify-content: center; font-size: 1.2rem;">🤖</div>
+          <div style="background: white; color: var(--text-main); padding: 14px 18px; border-radius: 0 16px 16px 16px; box-shadow: var(--shadow-sm); font-size: 0.95rem; line-height: 1.5;">
+            ${text.replace(/\n/g, '<br>')}
+            ${actionBtnHtml}
+          </div>
+        `;
+      }
+
+      container.appendChild(msgDiv);
+      container.scrollTop = container.scrollHeight;
+    }
+
+    function speakLastResponse() {
+      if ('speechSynthesis' in window) {
+        const synth = window.speechSynthesis;
+        const cleanText = lastAiReplyText.replace(/[*#]/g, '');
+        const utterance = new SpeechSynthesisUtterance(cleanText);
+        utterance.lang = 'hi-IN';
+        synth.speak(utterance);
+      } else {
+        alert("Text-to-speech is not supported on this browser.");
+      }
+    }
+  </script>
+</body>
+</html>

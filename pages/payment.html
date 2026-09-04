@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Razorpay Payment - KrishiSanjivani</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💳</text></svg>">
+  <!-- Razorpay Checkout JS Library (Test Mode) -->
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body style="background: linear-gradient(135deg, #F8FAFC 0%, #DCFCE7 100%);">
+
+  <!-- Govt Banner -->
+  <header class="govt-banner-strip">
+    <div class="govt-banner-left">
+      <span class="govt-emblem-badge">SIH 2026</span>
+      <span>Razorpay Secure Test Checkout Integration</span>
+    </div>
+    <div class="govt-banner-right">
+      <span class="banner-pill">256-Bit SSL Encryption</span>
+    </div>
+  </header>
+
+  <div class="container" style="max-width: 580px; margin-top: 40px;">
+    <div class="card" style="box-shadow: var(--shadow-lg);">
+      
+      <div style="text-align: center; margin-bottom: 20px;">
+        <span style="font-size: 3rem;">💳</span>
+        <h1 class="font-heading" style="font-size: 1.8rem; color: var(--primary-dark);">Razorpay Payment Gateway</h1>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">Test Mode Payment Gateway for Direct Farmer Settlement</p>
+      </div>
+
+      <!-- Payment Summary Box -->
+      <div style="background: #F8FAFC; border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 18px; margin-bottom: 24px;">
+        <div style="display: flex; justify-content: space-between; font-size: 0.95rem; margin-bottom: 8px;">
+          <span>Buyer Name:</span> <strong id="pay-buyer-name">Ramesh Patil</strong>
+        </div>
+        <div style="display: flex; justify-content: space-between; font-size: 0.95rem; margin-bottom: 8px;">
+          <span>Direct Farmer Settlement:</span> <strong style="color: var(--primary-dark);" id="pay-farmer-cut">₹0</strong>
+        </div>
+        <div style="display: flex; justify-content: space-between; font-size: 0.95rem; margin-bottom: 8px;">
+          <span>AI Logistics & Delivery:</span> <strong>₹150</strong>
+        </div>
+        <div style="display: flex; justify-content: space-between; border-top: 1.5px dashed var(--border-light); padding-top: 10px; margin-top: 8px; font-size: 1.25rem; font-weight: 800; color: var(--primary-dark);">
+          <span>Total Payable:</span> <span id="pay-total-amount">₹150</span>
+        </div>
+      </div>
+
+      <!-- Select Payment Method Tabs -->
+      <div style="margin-bottom: 24px;">
+        <label class="form-label">Payment Options:</label>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+          <div style="border: 2px solid var(--primary); background: var(--primary-soft); border-radius: var(--radius-md); padding: 12px; text-align: center; font-weight: 700; font-size: 0.85rem; color: var(--primary-dark);">
+            📱 UPI / GPay
+          </div>
+          <div style="border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 12px; text-align: center; font-weight: 600; font-size: 0.85rem;">
+            💳 Debit / Credit
+          </div>
+          <div style="border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 12px; text-align: center; font-weight: 600; font-size: 0.85rem;">
+            🏦 Net Banking
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <button class="btn btn-secondary btn-block btn-lg" onclick="launchRazorpayCheckout()">
+        ⚡ Pay Now via Razorpay (Test Mode)
+      </button>
+
+      <div style="margin-top: 14px; text-align: center;">
+        <button class="btn btn-sm btn-outline" onclick="simulateInstantPayment()">
+          🧪 Quick Demo Instant Approval Pass
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="../js/firebase-config.js"></script>
+  <script src="../js/i18n.js"></script>
+  <script src="../js/store.js"></script>
+  <script>
+    let cartSavings = null;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      cartSavings = window.store.getCartSavings();
+      const user = window.store.getUser();
+
+      document.getElementById('pay-buyer-name').innerText = user.name || "Ramesh Patil";
+      document.getElementById('pay-farmer-cut').innerText = `₹${cartSavings.totalDirect}`;
+      document.getElementById('pay-total-amount').innerText = `₹${cartSavings.totalDirect + 150}`;
+    });
+
+    function launchRazorpayCheckout() {
+      const totalAmount = (cartSavings.totalDirect + 150) * 100; // Razorpay expects amount in paise
+
+      const options = {
+        key: "rzp_test_KRISHISANJIVANI2026", // Demo Razorpay Test Key
+        amount: totalAmount,
+        currency: "INR",
+        name: "KrishiSanjivani Direct Market",
+        description: "Direct Farmer Payment & AI Logistics",
+        image: "data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌱</text></svg>",
+        handler: function (response) {
+          completePaymentSuccess(response.razorpay_payment_id || "pay_mock_" + Date.now());
+        },
+        prefill: {
+          name: window.store.getUser().name || "Ramesh Patil",
+          contact: "+919823011223"
+        },
+        theme: {
+          color: "#15803D"
+        }
+      };
+
+      try {
+        const rzp = new Razorpay(options);
+        rzp.open();
+      } catch (e) {
+        console.warn("Razorpay API popup fallback triggered.");
+        simulateInstantPayment();
+      }
+    }
+
+    function simulateInstantPayment() {
+      completePaymentSuccess("pay_test_sih2026_" + Math.floor(Math.random() * 1000000));
+    }
+
+    function completePaymentSuccess(paymentId) {
+      const cart = window.store.getCart();
+      const savings = window.store.getCartSavings();
+      const user = window.store.getUser();
+
+      const newOrder = window.store.createOrder({
+        buyerName: user.name || "Ramesh Patil",
+        items: cart,
+        totalAmount: savings.totalDirect + 150,
+        directFarmerCut: savings.totalDirect,
+        savedAmount: savings.savedAmount,
+        paymentId: paymentId,
+        paymentStatus: "Paid",
+        deliveryRoute: {
+          origin: "Solapur Village Hub",
+          destination: "Pune Distribution Hub",
+          eta: "24 Hours"
+        }
+      });
+
+      alert(`✅ Payment Successful!\nRazorpay Txn ID: ${paymentId}\nDirect Farmer Cut of ₹${savings.totalDirect} transferred.`);
+      window.location.href = `delivery.html?orderId=${newOrder.orderId}`;
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sell Produce - KrishiSanjivani</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌾</text></svg>">
+</head>
+<body>
+
+  <!-- Govt Banner -->
+  <header class="govt-banner-strip">
+    <div class="govt-banner-left">
+      <span class="govt-emblem-badge">SIH 2026</span>
+      <span data-i18n="govt_title">Smart India Hackathon 2026 Prototype</span>
+    </div>
+    <div class="govt-banner-right">
+      <span class="banner-pill" data-i18n="toll_free">Farmer Helpline: 1800-180-1551</span>
+    </div>
+  </header>
+
+  <!-- Navbar -->
+  <nav class="main-navbar">
+    <div class="navbar-container">
+      <a href="../index.html" class="navbar-brand">
+        <div class="brand-icon">🌱</div>
+        <div class="brand-text-container">
+          <span class="brand-title">KrishiSanjivani</span>
+          <span class="brand-subtitle">कृषी संजीवनी पोर्टल</span>
+        </div>
+      </a>
+
+      <ul class="navbar-links">
+        <li class="nav-item"><a href="dashboard.html"><span class="nav-icon">🏠</span> Home</a></li>
+        <li class="nav-item"><a href="buy.html"><span class="nav-icon">🛒</span> Buy</a></li>
+        <li class="nav-item active"><a href="sell.html"><span class="nav-icon">🌾</span> Sell</a></li>
+        <li class="nav-item"><a href="rent.html"><span class="nav-icon">🚜</span> Rent</a></li>
+        <li class="nav-item"><a href="schemes.html"><span class="nav-icon">📜</span> Schemes</a></li>
+        <li class="nav-item"><a href="orders.html"><span class="nav-icon">📦</span> Orders</a></li>
+      </ul>
+
+      <div class="navbar-actions">
+        <select class="lang-selector-btn" onchange="window.i18n.setLanguage(this.value)">
+          <option value="en">🌐 EN</option>
+          <option value="hi">🇮🇳 HI</option>
+          <option value="mr">🚩 MR</option>
+        </select>
+        <a href="cart.html" class="cart-btn-link">🛒 <span class="cart-badge" id="cart-count">0</span></a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container" style="max-width: 720px;">
+    <div class="card" style="box-shadow: var(--shadow-md);">
+      
+      <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 20px; border-bottom: 2px solid var(--border-light); padding-bottom: 14px;">
+        <span style="font-size: 2.4rem; background: var(--primary-soft); width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">🌾</span>
+        <div>
+          <h1 class="font-heading" style="font-size: 1.6rem; color: var(--primary-dark);">List Produce to Sell Direct</h1>
+          <p style="color: var(--text-muted); font-size: 0.9rem;">Fill basic details below. Tap mic button to speak into form.</p>
+        </div>
+      </div>
+
+      <form id="sell-produce-form" onsubmit="handleSellSubmit(event)">
+        
+        <!-- Crop Choice Dropdown -->
+        <div class="form-group">
+          <label class="form-label">
+            <span>Crop Name (फसल का नाम)</span>
+            <button type="button" class="btn btn-sm btn-outline" onclick="window.speechHelper.startListening('crop-name-input')">🎙️ Speak Crop</button>
+          </label>
+          <div class="voice-input-wrapper">
+            <input type="text" id="crop-name-input" class="form-control" placeholder="e.g. Soybeans, Red Onion, Wheat, Tomato" required>
+          </div>
+        </div>
+
+        <!-- Category Dropdown -->
+        <div class="form-group">
+          <label class="form-label">Category</label>
+          <select id="crop-category" class="form-control" required>
+            <option value="Grains">🌾 Grains & Pulses (अनाज)</option>
+            <option value="Vegetables">🥦 Vegetables (सब्जियां)</option>
+            <option value="Fruits">🍎 Fruits (फल)</option>
+            <option value="Spices">🌶️ Spices (मसाले)</option>
+          </select>
+        </div>
+
+        <!-- Quantity & Unit -->
+        <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 14px;">
+          <div class="form-group">
+            <label class="form-label">Quantity Available</label>
+            <input type="number" id="crop-qty" class="form-control" placeholder="e.g. 50" required min="1">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Unit</label>
+            <select id="crop-unit" class="form-control">
+              <option value="Quintal">Quintal (कुंतल)</option>
+              <option value="Kg">Kg (किलो)</option>
+              <option value="Ton">Ton (टन)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Direct Price per Unit -->
+        <div class="form-group">
+          <label class="form-label">Your Direct Selling Price (₹ per unit)</label>
+          <input type="number" id="crop-price" class="form-control" placeholder="e.g. 4800" required min="1">
+          <small style="color: var(--primary-dark); font-weight: 600;">✨ You receive 100% of this price with zero middleman deduction!</small>
+        </div>
+
+        <!-- Harvest Date & Location -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+          <div class="form-group">
+            <label class="form-label">Harvest Date</label>
+            <input type="date" id="crop-date" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Village / Location</label>
+            <input type="text" id="crop-location" class="form-control" placeholder="e.g. Solapur, MH" required>
+          </div>
+        </div>
+
+        <!-- Photo Upload Preview -->
+        <div class="form-group">
+          <label class="form-label">Produce Photo</label>
+          <input type="file" id="crop-photo-file" accept="image/*" class="form-control" onchange="previewImage(this)">
+          <div id="image-preview-container" style="margin-top: 10px; display: none;">
+            <img id="image-preview" src="" alt="Preview" style="max-height: 160px; border-radius: var(--radius-md); border: 2px solid var(--border-green);">
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-secondary btn-block btn-lg" style="margin-top: 20px;">
+          🚀 Publish Direct Produce Listing
+        </button>
+      </form>
+
+    </div>
+  </div>
+
+  <script src="../js/firebase-config.js"></script>
+  <script src="../js/i18n.js"></script>
+  <script src="../js/store.js"></script>
+  <script src="../js/speech.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('cart-count').innerText = window.store.getCartCount();
+      document.getElementById('crop-date').valueAsDate = new Date();
+      const user = window.store.getUser();
+      if (user && user.village) {
+        document.getElementById('crop-location').value = user.village;
+      }
+    });
+
+    let uploadedPhotoURL = "https://images.unsplash.com/photo-1599579138343-4d76b1f2372d?auto=format&fit=crop&w=600&q=80";
+
+    function previewImage(input) {
+      if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          uploadedPhotoURL = e.target.result;
+          document.getElementById('image-preview').src = e.target.result;
+          document.getElementById('image-preview-container').style.display = 'block';
+        };
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+
+    function handleSellSubmit(e) {
+      e.preventDefault();
+      const user = window.store.getUser();
+      
+      const newProduct = {
+        sellerName: user.name || "Ramesh Patil",
+        sellerPhone: user.phone || "+91 98230 11223",
+        sellerVillage: user.village || "Mohol, Solapur",
+        cropName: document.getElementById('crop-name-input').value,
+        category: document.getElementById('crop-category').value,
+        photoURL: uploadedPhotoURL,
+        directPrice: Number(document.getElementById('crop-price').value),
+        mandiPrice: Math.round(Number(document.getElementById('crop-price').value) * 1.35),
+        quantity: Number(document.getElementById('crop-qty').value),
+        unit: document.getElementById('crop-unit').value,
+        harvestDate: document.getElementById('crop-date').value,
+        location: document.getElementById('crop-location').value,
+        trustRating: 5.0,
+        isOrganic: true
+      };
+
+      window.store.addProduct(newProduct);
+      alert("✅ Your produce listing is published! Buyers will contact you directly.");
+      window.location.href = "buy.html";
+    }
+  </script>
+</body>
+</html>

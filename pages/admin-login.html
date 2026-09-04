@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login - KrishiSanjivani</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛡️</text></svg>">
+</head>
+<body style="background: #0F172A; color: white;">
+
+  <div class="container" style="max-width: 440px; margin-top: 80px;">
+    <div class="card" style="background: #1E293B; border-color: #334155; color: white; box-shadow: var(--shadow-lg);">
+      <div style="text-align: center; margin-bottom: 24px;">
+        <span style="font-size: 3rem;">🛡️</span>
+        <h1 class="font-heading" style="color: white; font-size: 1.6rem; margin-top: 10px;">Admin Access Control</h1>
+        <p style="color: #94A3B8; font-size: 0.875rem;">Protected Portal for SIH 2026 Platform Administrators</p>
+      </div>
+
+      <form id="admin-form" onsubmit="handleAdminAuth(event)">
+        <div class="form-group" style="text-align: left;">
+          <label class="form-label" style="color: #E2E8F0;">Admin Passcode / Role Pass</label>
+          <input type="password" id="admin-passcode" class="form-control" placeholder="Enter admin passcode (e.g. admin123)" style="background: #0F172A; border-color: #475569; color: white;" required>
+        </div>
+
+        <button type="submit" class="btn btn-secondary btn-block btn-lg" style="margin-top: 16px;">
+          🔓 Unlock Admin Dashboard
+        </button>
+      </form>
+
+      <div style="margin-top: 20px; text-align: center; font-size: 0.8rem; color: #64748B;">
+        Default SIH Demo Passcode: <code style="color: #F97316;">admin123</code>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/store.js"></script>
+  <script src="../js/auth.js"></script>
+  <script>
+    function handleAdminAuth(e) {
+      e.preventDefault();
+      const code = document.getElementById('admin-passcode').value;
+      const success = window.authManager.adminLogin(code);
+      if (success) {
+        window.location.href = "../pages/admin.html";
+      } else {
+        alert("Incorrect admin passcode!");
+      }
+    }
+  </script>
+</body>
+</html>

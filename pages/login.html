@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login / Signup - KrishiSanjivani</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌱</text></svg>">
+</head>
+<body style="background: linear-gradient(135deg, #F8FAFC 0%, #DCFCE7 100%);">
+
+  <!-- Govt Top Strip -->
+  <header class="govt-banner-strip">
+    <div class="govt-banner-left">
+      <span class="govt-emblem-badge">SIH 2026</span>
+      <span>Smart India Hackathon 2026 | Unified Authentication Portal</span>
+    </div>
+    <div class="govt-banner-right">
+      <a href="../index.html" style="color: white; text-decoration: underline;">← Back to Home</a>
+    </div>
+  </header>
+
+  <div class="container" style="max-width: 520px; margin-top: 40px;">
+    <div class="card" style="box-shadow: var(--shadow-lg); border-radius: var(--radius-lg); text-align: center;">
+      
+      <div style="margin-bottom: 24px;">
+        <div style="font-size: 3rem; margin-bottom: 8px;">🌱</div>
+        <h1 class="font-heading" style="font-size: 1.8rem; color: var(--primary-dark);">Welcome to KrishiSanjivani</h1>
+        <p style="color: var(--text-muted); font-size: 0.95rem;">Single Unified Login for Farmers, Consumers, and Bulk Buyers</p>
+      </div>
+
+      <!-- Google Sign-In Button -->
+      <button class="btn btn-block" onclick="window.authManager.loginWithGoogle()" style="background: white; border: 2px solid var(--border-light); color: var(--text-main); font-size: 1.05rem; padding: 14px; margin-bottom: 20px; box-shadow: var(--shadow-sm);">
+        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google Logo" style="width: 22px; height: 22px;">
+        <span>Sign in with Google</span>
+      </button>
+
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px;">
+        <div style="flex: 1; height: 1px; background: var(--border-light);"></div>
+        <span style="font-size: 0.85rem; color: var(--text-muted); font-weight: 600;">OR LOGIN WITH EMAIL</span>
+        <div style="flex: 1; height: 1px; background: var(--border-light);"></div>
+      </div>
+
+      <!-- Email / Password Form -->
+      <form id="login-form" onsubmit="handleFormSubmit(event)">
+        <div class="form-group" style="text-align: left;">
+          <label class="form-label">Email / Mobile Number</label>
+          <input type="text" id="auth-email" class="form-control" placeholder="e.g., ramesh.patil@gmail.com or 9823011223" required>
+        </div>
+
+        <div class="form-group" style="text-align: left;">
+          <label class="form-label">Password</label>
+          <input type="password" id="auth-password" class="form-control" placeholder="••••••••" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block btn-lg" style="margin-top: 10px;">
+          🔑 Login to Dashboard
+        </button>
+      </form>
+
+      <p style="font-size: 0.825rem; color: var(--text-muted); margin-top: 20px;">
+        First time user? Enter your email and password above to auto-create your account and personalize your profile.
+      </p>
+
+    </div>
+  </div>
+
+  <script src="../js/firebase-config.js"></script>
+  <script src="../js/i18n.js"></script>
+  <script src="../js/store.js"></script>
+  <script src="../js/auth.js"></script>
+  <script>
+    function handleFormSubmit(e) {
+      e.preventDefault();
+      const email = document.getElementById('auth-email').value;
+      const pass = document.getElementById('auth-password').value;
+      window.authManager.loginWithEmail(email, pass);
+    }
+  </script>
+</body>
+</html>

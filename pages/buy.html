@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buy Produce - KrishiSanjivani Marketplace</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛒</text></svg>">
+</head>
+<body>
+
+  <!-- Govt Banner -->
+  <header class="govt-banner-strip">
+    <div class="govt-banner-left">
+      <span class="govt-emblem-badge">SIH 2026</span>
+      <span data-i18n="govt_title">Smart India Hackathon 2026 Prototype</span>
+    </div>
+    <div class="govt-banner-right">
+      <span class="banner-pill" data-i18n="toll_free">Farmer Helpline: 1800-180-1551</span>
+    </div>
+  </header>
+
+  <!-- Navbar -->
+  <nav class="main-navbar">
+    <div class="navbar-container">
+      <a href="../index.html" class="navbar-brand">
+        <div class="brand-icon">🌱</div>
+        <div class="brand-text-container">
+          <span class="brand-title">KrishiSanjivani</span>
+          <span class="brand-subtitle">कृषी संजीवनी पोर्टल</span>
+        </div>
+      </a>
+
+      <ul class="navbar-links">
+        <li class="nav-item"><a href="dashboard.html"><span class="nav-icon">🏠</span> Home</a></li>
+        <li class="nav-item active"><a href="buy.html"><span class="nav-icon">🛒</span> Buy</a></li>
+        <li class="nav-item"><a href="sell.html"><span class="nav-icon">🌾</span> Sell</a></li>
+        <li class="nav-item"><a href="rent.html"><span class="nav-icon">🚜</span> Rent</a></li>
+        <li class="nav-item"><a href="schemes.html"><span class="nav-icon">📜</span> Schemes</a></li>
+        <li class="nav-item"><a href="orders.html"><span class="nav-icon">📦</span> Orders</a></li>
+      </ul>
+
+      <div class="navbar-actions">
+        <select class="lang-selector-btn" onchange="window.i18n.setLanguage(this.value)">
+          <option value="en">🌐 EN</option>
+          <option value="hi">🇮🇳 HI</option>
+          <option value="mr">🚩 MR</option>
+        </select>
+        <a href="cart.html" class="cart-btn-link">🛒 <span class="cart-badge" id="cart-count">0</span></a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px;">
+      <div>
+        <h1 class="font-heading" style="font-size: 1.8rem; color: var(--primary-dark);">🛒 Marketplace - Buy Direct Produce</h1>
+        <p style="color: var(--text-muted);">Buy directly from verified farmers & FPOs with zero middleman commissions</p>
+      </div>
+
+      <a href="cart.html" class="btn btn-secondary">
+        🛒 Checkout Cart (<span id="cart-btn-count">0</span>)
+      </a>
+    </div>
+
+    <!-- Filter & Search Control Panel -->
+    <div class="card" style="margin-bottom: 24px; padding: 18px;">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; align-items: center;">
+        
+        <!-- Search Input -->
+        <div class="voice-input-wrapper">
+          <input type="text" id="buy-search-input" class="form-control" placeholder="Search crops (e.g. Soybeans, Onion)..." oninput="filterProducts()">
+          <button class="mic-btn-inside" onclick="window.speechHelper.startListening('buy-search-input', filterProducts)">🎙️</button>
+        </div>
+
+        <!-- Category Dropdown -->
+        <div>
+          <select id="category-filter" class="form-control" onchange="filterProducts()">
+            <option value="ALL">🌾 All Categories</option>
+            <option value="Grains">🌾 Grains & Pulses</option>
+            <option value="Vegetables">🥦 Fresh Vegetables</option>
+            <option value="Spices">🌶️ Spices & Condiments</option>
+          </select>
+        </div>
+
+        <!-- Price Savings Badge filter -->
+        <div>
+          <select id="sort-filter" class="form-control" onchange="filterProducts()">
+            <option value="SAVINGS">✨ Highest Savings First</option>
+            <option value="LOW_PRICE">💰 Price: Low to High</option>
+            <option value="RATING">⭐ Rating: High to Low</option>
+          </select>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Product Grid -->
+    <div class="product-grid" id="market-product-grid">
+      <!-- Renders via JS -->
+    </div>
+  </div>
+
+  <script src="../js/firebase-config.js"></script>
+  <script src="../js/i18n.js"></script>
+  <script src="../js/store.js"></script>
+  <script src="../js/speech.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      updateCartBadge();
+      renderProducts(window.store.getProducts());
+    });
+
+    function updateCartBadge() {
+      const cnt = window.store.getCartCount();
+      document.getElementById('cart-count').innerText = cnt;
+      document.getElementById('cart-btn-count').innerText = cnt;
+    }
+
+    function renderProducts(products) {
+      const grid = document.getElementById('market-product-grid');
+      if (!products.length) {
+        grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--text-muted);">No crops match your search criteria.</div>`;
+        return;
+      }
+
+      grid.innerHTML = products.map(p => {
+        const saved = (p.mandiPrice || Math.round(p.directPrice * 1.35)) - p.directPrice;
+        return `
+          <div class="product-card">
+            <div class="product-img-wrapper">
+              <img src="${p.photoURL}" alt="${p.cropName}" class="product-img">
+              <span class="product-badge-overlay price-savings-tag">Saved ₹${saved} / ${p.unit}</span>
+              <span class="seller-location-badge">📍 ${p.location}</span>
+            </div>
+            <div class="product-body">
+              <h3 class="product-title">${p.cropName}</h3>
+              <div class="seller-info">
+                <span>👤 ${p.sellerName}</span>
+                <span class="trust-stars">⭐ ${p.trustRating}</span>
+              </div>
+
+              <!-- Price breakdown box -->
+              <div style="background: #F8FAFC; border-radius: var(--radius-sm); padding: 8px; font-size: 0.8rem; margin: 6px 0;">
+                <div style="display:flex; justify-content:space-between; color:var(--danger); text-decoration:line-through;">
+                  <span>Mandi Price:</span> <span>₹${p.mandiPrice || Math.round(p.directPrice * 1.35)}</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; color:var(--primary-dark); font-weight:700;">
+                  <span>Direct Price:</span> <span>₹${p.directPrice}</span>
+                </div>
+              </div>
+
+              <div class="product-price-section">
+                <div>
+                  <span class="product-unit-price">₹${p.directPrice}</span>
+                  <span class="unit-label">/ ${p.unit}</span>
+                </div>
+                <button class="btn btn-sm btn-primary" onclick="addToCartItem('${p.id}')">🛒 Add</button>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function filterProducts() {
+      const search = document.getElementById('buy-search-input').value.toLowerCase();
+      const cat = document.getElementById('category-filter').value;
+      const sort = document.getElementById('sort-filter').value;
+
+      let list = window.store.getProducts();
+
+      if (search) {
+        list = list.filter(p => p.cropName.toLowerCase().includes(search) || p.sellerName.toLowerCase().includes(search) || p.location.toLowerCase().includes(search));
+      }
+
+      if (cat !== 'ALL') {
+        list = list.filter(p => p.category === cat);
+      }
+
+      if (sort === 'LOW_PRICE') {
+        list.sort((a, b) => a.directPrice - b.directPrice);
+      } else if (sort === 'RATING') {
+        list.sort((a, b) => b.trustRating - a.trustRating);
+      } else {
+        // SAVINGS
+        list.sort((a, b) => ((b.mandiPrice || b.directPrice * 1.35) - b.directPrice) - ((a.mandiPrice || a.directPrice * 1.35) - a.directPrice));
+      }
+
+      renderProducts(list);
+    }
+
+    function addToCartItem(id) {
+      const p = window.store.getProducts().find(item => item.id === id);
+      if (p) {
+        window.store.addToCart(p, 1);
+        updateCartBadge();
+        window.speechHelper.showToast(`✅ Added ${p.cropName} to cart!`);
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Orders - KrishiSanjivani</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📦</text></svg>">
+</head>
+<body>
+
+  <!-- Govt Banner -->
+  <header class="govt-banner-strip">
+    <div class="govt-banner-left">
+      <span class="govt-emblem-badge">SIH 2026</span>
+      <span>Smart India Hackathon 2026 Prototype</span>
+    </div>
+    <div class="govt-banner-right">
+      <span class="banner-pill">Farmer Helpline: 1800-180-1551</span>
+    </div>
+  </header>
+
+  <!-- Navbar -->
+  <nav class="main-navbar">
+    <div class="navbar-container">
+      <a href="../index.html" class="navbar-brand">
+        <div class="brand-icon">🌱</div>
+        <div class="brand-text-container">
+          <span class="brand-title">KrishiSanjivani</span>
+          <span class="brand-subtitle">कृषी संजीवनी पोर्टल</span>
+        </div>
+      </a>
+
+      <ul class="navbar-links">
+        <li class="nav-item"><a href="dashboard.html"><span class="nav-icon">🏠</span> Home</a></li>
+        <li class="nav-item"><a href="buy.html"><span class="nav-icon">🛒</span> Buy</a></li>
+        <li class="nav-item"><a href="sell.html"><span class="nav-icon">🌾</span> Sell</a></li>
+        <li class="nav-item"><a href="rent.html"><span class="nav-icon">🚜</span> Rent</a></li>
+        <li class="nav-item"><a href="schemes.html"><span class="nav-icon">📜</span> Schemes</a></li>
+        <li class="nav-item active"><a href="orders.html"><span class="nav-icon">📦</span> Orders</a></li>
+      </ul>
+
+      <div class="navbar-actions">
+        <select class="lang-selector-btn" onchange="window.i18n.setLanguage(this.value)">
+          <option value="en">🌐 EN</option>
+          <option value="hi">🇮🇳 HI</option>
+          <option value="mr">🚩 MR</option>
+        </select>
+        <a href="cart.html" class="cart-btn-link">🛒 <span class="cart-badge" id="cart-count">0</span></a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h1 class="font-heading" style="font-size: 1.8rem; color: var(--primary-dark); margin-bottom: 20px;">📦 My Orders & Live Status Tracking</h1>
+
+    <div id="orders-list-container">
+      <!-- Renders via JS -->
+    </div>
+  </div>
+
+  <script src="../js/firebase-config.js"></script>
+  <script src="../js/i18n.js"></script>
+  <script src="../js/store.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('cart-count').innerText = window.store.getCartCount();
+      renderOrders();
+    });
+
+    function renderOrders() {
+      let orders = window.store.getOrders();
+      const container = document.getElementById('orders-list-container');
+
+      if (!orders.length) {
+        // Fallback demo order
+        orders = [{
+          orderId: "KS-ORD-981240",
+          createdAt: new Date().toISOString(),
+          status: "In Transit",
+          totalAmount: 4950,
+          savedAmount: 1700,
+          items: [{ cropName: "Organic Soybeans", selectedQty: 1, unit: "Quintal", directPrice: 4800 }]
+        }];
+      }
+
+      container.innerHTML = orders.map(ord => `
+        <div class="card" style="margin-bottom: 20px; box-shadow: var(--shadow-sm);">
+          
+          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-light); padding-bottom: 12px; margin-bottom: 16px; flex-wrap: wrap; gap: 10px;">
+            <div>
+              <h3 class="font-heading" style="color: var(--primary-dark);">Order #${ord.orderId}</h3>
+              <span style="font-size: 0.8rem; color: var(--text-muted);">Placed on: ${new Date(ord.createdAt).toLocaleString()}</span>
+            </div>
+
+            <div style="display: flex; gap: 10px; align-items: center;">
+              <span class="price-savings-tag">Saved ₹${ord.savedAmount || 1700}</span>
+              <a href="delivery.html?orderId=${ord.orderId}" class="btn btn-sm btn-secondary">🚚 Track Live Map</a>
+              <a href="invoice.html?orderId=${ord.orderId}" class="btn btn-sm btn-outline">📄 Invoice</a>
+            </div>
+          </div>
+
+          <!-- Status Timeline Bar -->
+          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; text-align: center; margin-bottom: 20px; background: #F8FAFC; padding: 16px; border-radius: var(--radius-md);">
+            <div style="color: var(--primary-dark); font-weight: 700;">
+              <div style="font-size: 1.4rem;">📝</div>
+              <div style="font-size: 0.8rem;">Placed</div>
+              <span style="color: var(--success); font-size: 0.75rem;">✓ Done</span>
+            </div>
+
+            <div style="color: var(--primary-dark); font-weight: 700;">
+              <div style="font-size: 1.4rem;">📦</div>
+              <div style="font-size: 0.8rem;">Packed</div>
+              <span style="color: var(--success); font-size: 0.75rem;">✓ Done</span>
+            </div>
+
+            <div style="color: var(--secondary-hover); font-weight: 800;">
+              <div style="font-size: 1.4rem;">🚚</div>
+              <div style="font-size: 0.8rem;">In Transit</div>
+              <span style="background: var(--secondary); color: white; padding: 1px 6px; border-radius: var(--radius-pill); font-size: 0.7rem;">Active</span>
+            </div>
+
+            <div style="color: var(--text-light); font-weight: 600;">
+              <div style="font-size: 1.4rem;">🏠</div>
+              <div style="font-size: 0.8rem;">Delivered</div>
+              <span style="font-size: 0.75rem;">Pending</span>
+            </div>
+          </div>
+
+          <!-- Items list -->
+          <div>
+            ${(ord.items || []).map(i => `
+              <div style="display: flex; justify-content: space-between; font-size: 0.9rem; margin-bottom: 6px;">
+                <span>🌾 ${i.cropName} (${i.selectedQty} ${i.unit})</span>
+                <strong style="color: var(--primary-dark);">₹${i.directPrice * i.selectedQty}</strong>
+              </div>
+            `).join('')}
+          </div>
+
+        </div>
+      `).join('');
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - KrishiSanjivani</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌱</text></svg>">
+</head>
+<body>
+
+  <!-- Govt Banner -->
+  <header class="govt-banner-strip">
+    <div class="govt-banner-left">
+      <span class="govt-emblem-badge">SIH 2026</span>
+      <span data-i18n="govt_title">Smart India Hackathon 2026 Prototype</span>
+    </div>
+    <div class="govt-banner-right">
+      <span class="banner-pill" data-i18n="toll_free">Farmer Helpline: 1800-180-1551</span>
+    </div>
+  </header>
+
+  <!-- Navbar -->
+  <nav class="main-navbar">
+    <div class="navbar-container">
+      <a href="../index.html" class="navbar-brand">
+        <div class="brand-icon">🌱</div>
+        <div class="brand-text-container">
+          <span class="brand-title">KrishiSanjivani</span>
+          <span class="brand-subtitle">कृषी संजीवनी पोर्टल</span>
+        </div>
+      </a>
+
+      <ul class="navbar-links">
+        <li class="nav-item active"><a href="dashboard.html"><span class="nav-icon">🏠</span> Home</a></li>
+        <li class="nav-item"><a href="buy.html"><span class="nav-icon">🛒</span> Buy</a></li>
+        <li class="nav-item"><a href="sell.html"><span class="nav-icon">🌾</span> Sell</a></li>
+        <li class="nav-item"><a href="rent.html"><span class="nav-icon">🚜</span> Rent</a></li>
+        <li class="nav-item"><a href="schemes.html"><span class="nav-icon">📜</span> Schemes</a></li>
+        <li class="nav-item"><a href="orders.html"><span class="nav-icon">📦</span> Orders</a></li>
+      </ul>
+
+      <div class="navbar-actions">
+        <select class="lang-selector-btn" onchange="window.i18n.setLanguage(this.value)">
+          <option value="en">🌐 EN</option>
+          <option value="hi">🇮🇳 HI</option>
+          <option value="mr">🚩 MR</option>
+        </select>
+
+        <a href="cart.html" class="cart-btn-link">🛒 <span class="cart-badge" id="cart-count">0</span></a>
+        
+        <a href="profile.html" class="user-profile-badge" id="user-badge-name">
+          <span>👤</span> Ramesh Patil
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <!-- User Welcome Greeting Header -->
+    <div style="background: white; border-radius: var(--radius-lg); padding: 24px; border: 1px solid var(--border-light); margin-bottom: 24px; box-shadow: var(--shadow-sm); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;">
+      <div>
+        <h1 class="font-heading" style="font-size: 1.8rem; color: var(--primary-dark);" id="welcome-title">Namaste, Ramesh Patil 🙏</h1>
+        <p style="color: var(--text-muted); font-size: 0.95rem;" id="user-location-text">📍 Location: Mohol, Solapur | Member of Solapur FPO Group</p>
+      </div>
+
+      <div style="display: flex; gap: 12px;">
+        <a href="sell.html" class="btn btn-secondary">🌾 List New Crop</a>
+        <a href="rent.html" class="btn btn-outline">🚜 Rent Equipment</a>
+      </div>
+    </div>
+
+    <!-- Weather Forecast Quick Widget -->
+    <div class="weather-banner-card">
+      <div class="weather-main-info">
+        <span class="weather-temp-icon">🌤️</span>
+        <div>
+          <div class="weather-degrees">29°C</div>
+          <div style="font-weight: 600;">Solapur, Maharashtra | Partly Sunny</div>
+        </div>
+      </div>
+
+      <div>
+        <span class="weather-advice-pill" data-i18n="weather_advice">Optimal weather for soybean harvest & rabi sowing.</span>
+      </div>
+    </div>
+
+    <!-- Emergency Pest Alert -->
+    <div class="emergency-alert-banner">
+      <div class="alert-content">
+        <span class="alert-icon">🚨</span>
+        <div class="alert-text">
+          <h4 data-i18n="pest_alert_title">Emergency Pest Advisory Alert</h4>
+          <p data-i18n="pest_alert_body">Locust & Stem borer warning in Solapur region. Apply Neem spray immediately.</p>
+        </div>
+      </div>
+      <a href="weather.html" class="btn btn-sm btn-outline" style="border-color: #DC2626; color: #DC2626;">View Advisory</a>
+    </div>
+
+    <!-- 12 Dashboard Icon Tiles Grid -->
+    <h2 class="font-heading" style="font-size: 1.4rem; margin-bottom: 16px;">📱 All Services (Touch Icons)</h2>
+
+    <div class="dashboard-grid">
+      <a href="weather.html" class="icon-tile-card">
+        <div class="tile-icon-wrapper">🌤️</div>
+        <span class="tile-label" data-i18n="tile_weather">Weather</span>
+        <span class="tile-badge">Forecast</span>
+      </a>
+
+      <a href="buy.html" class="icon-tile-card">
+        <div class="tile-icon-wrapper">🛒</div>
+        <span class="tile-label" data-i18n="tile_buy">Buy Produce</span>
+        <span class="tile-badge">Direct Market</span>
+      </a>
+
+      <a href="sell.html" class="icon-tile-card">
+        <div class="tile-icon-wrapper">🌾</div>
+        <span class="tile-label" data-i18n="tile_sell">Sell Produce</span>
+        <span class="tile-badge">List Crop</span>
+      </a>
+
+      <a href="rent.html" class="icon-tile-card">
+        <div class="tile-icon-wrapper">🚜</div>
+        <span class="tile-label" data-i18n="tile_rent">Rent Equipment</span>
+        <span class="tile-badge">Tractor / Drone</span>
+      </a>
+
+      <a href="search.html" class="icon-tile-card">
+        <div class="tile-icon-wrapper">🔍</div>
+        <span class="tile-label" data-i18n="tile_search">Search All</span>
+        <span class="tile-badge">Voice Search</span>
+      </a>
+
+      <a href="chatbot.html" class="icon-tile-card">
+        <div class="tile-icon-wrapper">🤖</div>
+        <span class="tile-label" data-i18n="tile_chatbot">AI Assistant</span>
+        <span class="tile-badge">Krishi Mitra</span>
+      </a>
+
+      <a href="schemes.html" class="icon-tile-card">
+        <div class="tile-icon-wrapper">📜</div>
+        <span class="tile-label" data-i18n="tile_schemes">Govt Schemes</span>
+        <span class="tile-badge">Subsidies</span>
+      </a>
+
+      <a href="rights.html" class="icon-tile-card">
+        <div class="tile-icon-wrapper">⚖️</div>
+        <span class="tile-label" data-i18n="tile_rights">Farmer Rights</span>
+        <span class="tile-badge">Laws & MSP</span>
+      </a>
+
+      <a href="mahadbt.html" class="icon-tile-card">
+        <div class="tile-icon-wrapper">🏛️</div>
+        <span class="tile-label" data-i18n="tile_mahadbt">MahaDBT</span>
+        <span class="tile-badge">State Portal</span>
+      </a>
+
+      <a href="ai-demand.html" class="icon-tile-card">
+        <div class="tile-icon-wrapper">📈</div>
+        <span class="tile-label" data-i18n="tile_ai_demand">Demand Forecast</span>
+        <span class="tile-badge">AI Trends</span>
+      </a>
+
+      <a href="orders.html" class="icon-tile-card">
+        <div class="tile-icon-wrapper">📦</div>
+        <span class="tile-label" data-i18n="tile_orders">My Orders</span>
+        <span class="tile-badge">Status</span>
+      </a>
+
+      <a href="help.html" class="icon-tile-card">
+        <div class="tile-icon-wrapper">❓</div>
+        <span class="tile-label" data-i18n="tile_help">Help & Guide</span>
+        <span class="tile-badge">3-Step Pics</span>
+      </a>
+    </div>
+
+  </div>
+
+  <script src="../js/firebase-config.js"></script>
+  <script src="../js/i18n.js"></script>
+  <script src="../js/store.js"></script>
+  <script src="../js/auth.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('cart-count').innerText = window.store.getCartCount();
+      const user = window.store.getUser();
+      if (user && user.name) {
+        document.getElementById('welcome-title').innerText = `Namaste, ${user.name} 🙏`;
+        document.getElementById('user-badge-name').innerHTML = `<span>👤</span> ${user.name}`;
+        if (user.village) {
+          document.getElementById('user-location-text').innerText = `📍 Location: ${user.village} | Member of ${user.fpoGroup || 'Solapur FPO Group'}`;
+        }
+      }
+    });
+  </script>
+</body>
+</html>

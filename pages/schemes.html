@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Government Schemes - KrishiSanjivani</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📜</text></svg>">
+</head>
+<body>
+
+  <!-- Govt Banner -->
+  <header class="govt-banner-strip">
+    <div class="govt-banner-left">
+      <span class="govt-emblem-badge">SIH 2026</span>
+      <span>Smart India Hackathon 2026 Prototype</span>
+    </div>
+    <div class="govt-banner-right">
+      <span class="banner-pill">Scheme Helpline: 1800-180-1551</span>
+    </div>
+  </header>
+
+  <!-- Navbar -->
+  <nav class="main-navbar">
+    <div class="navbar-container">
+      <a href="../index.html" class="navbar-brand">
+        <div class="brand-icon">🌱</div>
+        <div class="brand-text-container">
+          <span class="brand-title">KrishiSanjivani</span>
+          <span class="brand-subtitle">कृषी संजीवनी पोर्टल</span>
+        </div>
+      </a>
+
+      <ul class="navbar-links">
+        <li class="nav-item"><a href="dashboard.html"><span class="nav-icon">🏠</span> Home</a></li>
+        <li class="nav-item"><a href="buy.html"><span class="nav-icon">🛒</span> Buy</a></li>
+        <li class="nav-item"><a href="sell.html"><span class="nav-icon">🌾</span> Sell</a></li>
+        <li class="nav-item"><a href="rent.html"><span class="nav-icon">🚜</span> Rent</a></li>
+        <li class="nav-item active"><a href="schemes.html"><span class="nav-icon">📜</span> Schemes</a></li>
+        <li class="nav-item"><a href="orders.html"><span class="nav-icon">📦</span> Orders</a></li>
+      </ul>
+
+      <div class="navbar-actions">
+        <select class="lang-selector-btn" onchange="window.i18n.setLanguage(this.value)">
+          <option value="en">🌐 EN</option>
+          <option value="hi">🇮🇳 HI</option>
+          <option value="mr">🚩 MR</option>
+        </select>
+        <a href="cart.html" class="cart-btn-link">🛒 <span class="cart-badge" id="cart-count">0</span></a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div style="margin-bottom: 20px;">
+      <h1 class="font-heading" style="font-size: 1.8rem; color: var(--primary-dark);">📜 Central & State Government Schemes</h1>
+      <p style="color: var(--text-muted);">Direct benefits, financial assistance, and subsidy schemes for Indian farmers</p>
+    </div>
+
+    <!-- Scheme Cards Grid -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px;" id="schemes-grid">
+      <!-- Renders via JS -->
+    </div>
+  </div>
+
+  <script src="../js/firebase-config.js"></script>
+  <script src="../js/i18n.js"></script>
+  <script src="../js/store.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('cart-count').innerText = window.store.getCartCount();
+      renderSchemes();
+    });
+
+    function renderSchemes() {
+      const schemes = window.store.getSchemes();
+      const grid = document.getElementById('schemes-grid');
+      
+      grid.innerHTML = schemes.map(s => `
+        <div class="card" style="display: flex; flex-direction: column; justify-content: space-between; border-left: 5px solid var(--primary);">
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+              <span style="font-size: 2.5rem;">${s.icon}</span>
+              <span style="background: var(--primary-soft); color: var(--primary-dark); padding: 4px 12px; border-radius: var(--radius-pill); font-weight: 800; font-size: 0.85rem;">${s.amount}</span>
+            </div>
+
+            <h3 class="font-heading" style="font-size: 1.25rem; margin-bottom: 6px;">${s.title}</h3>
+            <p style="font-size: 0.8rem; color: var(--secondary-hover); font-weight: 700; margin-bottom: 10px;">${s.ministry}</p>
+            <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 14px;">${s.summary}</p>
+
+            <h4 style="font-size: 0.85rem; font-weight: 700; color: var(--text-main); margin-bottom: 6px;">Eligibility Check:</h4>
+            <ul style="list-style: none; padding-left: 0; font-size: 0.825rem; color: var(--text-muted); margin-bottom: 20px;">
+              ${s.eligibility.map(e => `<li>✅ ${e}</li>`).join('')}
+            </ul>
+          </div>
+
+          <div style="display: flex; gap: 10px;">
+            <a href="${s.applyLink}" target="_blank" class="btn btn-secondary btn-block">Apply Official Portal 🌐</a>
+            <button class="btn btn-outline" onclick="alert('Guidance requested! Our local Krishi Mitras will call you to complete your ${s.title} registration.')">Get Help</button>
+          </div>
+        </div>
+      `).join('');
+    }
+  </script>
+</body>
+</html>

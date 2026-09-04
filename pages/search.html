@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Universal Search - KrishiSanjivani</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔍</text></svg>">
+</head>
+<body>
+
+  <!-- Govt Banner -->
+  <header class="govt-banner-strip">
+    <div class="govt-banner-left">
+      <span class="govt-emblem-badge">SIH 2026</span>
+      <span>Smart India Hackathon 2026 Prototype</span>
+    </div>
+    <div class="govt-banner-right">
+      <span class="banner-pill">Farmer Helpline: 1800-180-1551</span>
+    </div>
+  </header>
+
+  <!-- Navbar -->
+  <nav class="main-navbar">
+    <div class="navbar-container">
+      <a href="../index.html" class="navbar-brand">
+        <div class="brand-icon">🌱</div>
+        <div class="brand-text-container">
+          <span class="brand-title">KrishiSanjivani</span>
+          <span class="brand-subtitle">कृषी संजीवनी पोर्टल</span>
+        </div>
+      </a>
+
+      <ul class="navbar-links">
+        <li class="nav-item"><a href="dashboard.html"><span class="nav-icon">🏠</span> Home</a></li>
+        <li class="nav-item"><a href="buy.html"><span class="nav-icon">🛒</span> Buy</a></li>
+        <li class="nav-item"><a href="sell.html"><span class="nav-icon">🌾</span> Sell</a></li>
+        <li class="nav-item"><a href="rent.html"><span class="nav-icon">🚜</span> Rent</a></li>
+        <li class="nav-item"><a href="schemes.html"><span class="nav-icon">📜</span> Schemes</a></li>
+        <li class="nav-item"><a href="orders.html"><span class="nav-icon">📦</span> Orders</a></li>
+      </ul>
+
+      <div class="navbar-actions">
+        <select class="lang-selector-btn" onchange="window.i18n.setLanguage(this.value)">
+          <option value="en">🌐 EN</option>
+          <option value="hi">🇮🇳 HI</option>
+          <option value="mr">🚩 MR</option>
+        </select>
+        <a href="cart.html" class="cart-btn-link">🛒 <span class="cart-badge" id="cart-count">0</span></a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="card" style="margin-bottom: 24px;">
+      <h1 class="font-heading" style="font-size: 1.8rem; color: var(--primary-dark); margin-bottom: 12px;">🔍 Universal Agriculture Search</h1>
+      <p style="color: var(--text-muted); margin-bottom: 20px;">Search across fresh crops, farm equipment rentals, and government schemes in one place.</p>
+
+      <div class="voice-input-wrapper">
+        <input type="text" id="uni-search-input" class="form-control" placeholder="Search crops, tractors, drones, schemes (e.g. Soybean, Tractor, PM-KISAN)..." oninput="performUniversalSearch()" style="padding: 16px 50px 16px 20px; font-size: 1.1rem; border-radius: var(--radius-pill);">
+        <button class="mic-btn-inside" onclick="window.speechHelper.startListening('uni-search-input', performUniversalSearch)">🎙️</button>
+      </div>
+    </div>
+
+    <!-- Search Results Section -->
+    <div id="search-results-container">
+      <div class="card" style="text-align: center; color: var(--text-muted); padding: 40px;">
+        Type or speak above to search crops, equipment, and government schemes.
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/firebase-config.js"></script>
+  <script src="../js/i18n.js"></script>
+  <script src="../js/store.js"></script>
+  <script src="../js/speech.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('cart-count').innerText = window.store.getCartCount();
+      // Check query params if passed
+      const params = new URLSearchParams(window.location.search);
+      const q = params.get('q');
+      if (q) {
+        document.getElementById('uni-search-input').value = q;
+        performUniversalSearch();
+      }
+    });
+
+    function performUniversalSearch() {
+      const q = document.getElementById('uni-search-input').value.toLowerCase().trim();
+      const container = document.getElementById('search-results-container');
+
+      if (!q) {
+        container.innerHTML = `<div class="card" style="text-align: center; color: var(--text-muted); padding: 40px;">Type or speak above to search crops, equipment, and government schemes.</div>`;
+        return;
+      }
+
+      const products = window.store.getProducts().filter(p => p.cropName.toLowerCase().includes(q) || p.sellerName.toLowerCase().includes(q) || p.location.toLowerCase().includes(q));
+      const equipment = window.store.getEquipment().filter(e => e.name.toLowerCase().includes(q) || e.category.toLowerCase().includes(q) || e.specs.toLowerCase().includes(q));
+      const schemes = window.store.getSchemes().filter(s => s.title.toLowerCase().includes(q) || s.summary.toLowerCase().includes(q));
+
+      let html = '';
+
+      if (products.length) {
+        html += `<h2 class="font-heading" style="margin: 20px 0 12px 0;">🌾 Matching Crops (${products.length})</h2><div class="product-grid">`;
+        products.forEach(p => {
+          html += `
+            <div class="product-card">
+              <div class="product-img-wrapper"><img src="${p.photoURL}" class="product-img"></div>
+              <div class="product-body">
+                <h3>${p.cropName}</h3>
+                <div style="font-weight: 800; color: var(--primary-dark); font-size: 1.2rem;">₹${p.directPrice} / ${p.unit}</div>
+                <a href="buy.html" class="btn btn-sm btn-primary" style="margin-top: 8px;">View in Market</a>
+              </div>
+            </div>
+          `;
+        });
+        html += `</div>`;
+      }
+
+      if (equipment.length) {
+        html += `<h2 class="font-heading" style="margin: 30px 0 12px 0;">🚜 Matching Rental Equipment (${equipment.length})</h2><div class="product-grid">`;
+        equipment.forEach(eq => {
+          html += `
+            <div class="product-card">
+              <div class="product-img-wrapper"><img src="${eq.photoURL}" class="product-img"></div>
+              <div class="product-body">
+                <h3>${eq.name}</h3>
+                <div style="font-weight: 800; color: var(--secondary); font-size: 1.2rem;">₹${eq.rentPricePerDay} / day</div>
+                <a href="rent.html" class="btn btn-sm btn-secondary" style="margin-top: 8px;">Rent Now</a>
+              </div>
+            </div>
+          `;
+        });
+        html += `</div>`;
+      }
+
+      if (schemes.length) {
+        html += `<h2 class="font-heading" style="margin: 30px 0 12px 0;">📜 Matching Govt Schemes (${schemes.length})</h2>`;
+        schemes.forEach(s => {
+          html += `
+            <div class="card" style="margin-bottom: 14px;">
+              <h3>${s.icon} ${s.title}</h3>
+              <p style="color: var(--text-muted); font-size: 0.9rem; margin: 6px 0;">${s.summary}</p>
+              <a href="schemes.html" class="btn btn-sm btn-outline">Read Scheme Details</a>
+            </div>
+          `;
+        });
+      }
+
+      if (!products.length && !equipment.length && !schemes.length) {
+        html = `<div class="card" style="text-align: center; color: var(--danger); padding: 40px;">No results found for "${q}". Try searching "Soybean", "Tractor", or "PM-KISAN".</div>`;
+      }
+
+      container.innerHTML = html;
+    }
+  </script>
+</body>
+</html>

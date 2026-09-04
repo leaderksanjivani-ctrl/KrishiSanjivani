@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel - KrishiSanjivani</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛡️</text></svg>">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body style="background: #0F172A; color: #F8FAFC;">
+
+  <!-- Admin Top Bar -->
+  <header style="background: #1E293B; border-bottom: 2px solid var(--primary); padding: 12px 24px; display: flex; justify-content: space-between; align-items: center;">
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <span style="font-size: 1.8rem;">🛡️</span>
+      <div>
+        <h2 class="font-heading" style="color: white; font-size: 1.3rem;">KrishiSanjivani Admin Control Panel</h2>
+        <p style="font-size: 0.8rem; color: #94A3B8;">SIH 2026 Platform Operations & Impact Metrics</p>
+      </div>
+    </div>
+
+    <div>
+      <a href="../index.html" class="btn btn-sm btn-outline" style="color: white; border-color: #475569;">Public Site →</a>
+    </div>
+  </header>
+
+  <div class="container" style="max-width: 1280px; padding-top: 24px;">
+    
+    <!-- SIH Impact Metric Counters Grid -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-bottom: 24px;">
+      
+      <!-- Total GMV -->
+      <div style="background: #1E293B; border: 1px solid #334155; border-radius: var(--radius-lg); padding: 20px;">
+        <div style="font-size: 0.8rem; font-weight: 700; color: #94A3B8; text-transform: uppercase;">Total Platform GMV</div>
+        <div style="font-size: 2.2rem; font-weight: 800; color: var(--primary-light); margin-top: 4px;">₹ 48,25,000</div>
+        <div style="font-size: 0.8rem; color: #64748B;">Direct farmer transactions</div>
+      </div>
+
+      <!-- Middleman Savings Counter -->
+      <div style="background: linear-gradient(135deg, #14532D 0%, #15803D 100%); border-radius: var(--radius-lg); padding: 20px; color: white;">
+        <div style="font-size: 0.8rem; font-weight: 800; text-transform: uppercase; color: #DCFCE7;">💡 Middleman Savings Created</div>
+        <div style="font-size: 2.2rem; font-weight: 800; margin-top: 4px;">₹ 14,80,400</div>
+        <div style="font-size: 0.8rem; color: #DCFCE7;">Saved for farmers & buyers</div>
+      </div>
+
+      <!-- Active Farmers -->
+      <div style="background: #1E293B; border: 1px solid #334155; border-radius: var(--radius-lg); padding: 20px;">
+        <div style="font-size: 0.8rem; font-weight: 700; color: #94A3B8; text-transform: uppercase;">Active Farmers Registered</div>
+        <div style="font-size: 2.2rem; font-weight: 800; color: var(--secondary); margin-top: 4px;">12,450</div>
+        <div style="font-size: 0.8rem; color: #64748B;">Across 18 districts</div>
+      </div>
+
+      <!-- Route Efficiency -->
+      <div style="background: #1E293B; border: 1px solid #334155; border-radius: var(--radius-lg); padding: 20px;">
+        <div style="font-size: 0.8rem; font-weight: 700; color: #94A3B8; text-transform: uppercase;">AI Route Efficiency</div>
+        <div style="font-size: 2.2rem; font-weight: 800; color: var(--accent-blue); margin-top: 4px;">96.4%</div>
+        <div style="font-size: 0.8rem; color: #64748B;">Carbon footprint reduced</div>
+      </div>
+
+    </div>
+
+    <!-- Emergency Advisory Broadcast Banner Tool -->
+    <div style="background: #1E293B; border: 1.5px solid #DC2626; border-radius: var(--radius-lg); padding: 20px; margin-bottom: 24px;">
+      <h3 class="font-heading" style="color: #FCA5A5; font-size: 1.2rem; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+        📢 Broadcast Emergency Crop / Pest Alert
+      </h3>
+
+      <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+        <input type="text" id="alert-title-input" class="form-control" placeholder="Alert Title (e.g., Locust Attack Warning)" style="background: #0F172A; border-color: #475569; color: white; flex: 1;">
+        <input type="text" id="alert-body-input" class="form-control" placeholder="Alert Message Body for farmers..." style="background: #0F172A; border-color: #475569; color: white; flex: 2;">
+        <button class="btn btn-secondary" onclick="broadcastAlert()">Broadcast Alert 🚀</button>
+      </div>
+    </div>
+
+    <!-- Analytics Charts Grid -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 20px; margin-bottom: 24px;">
+      
+      <div style="background: #1E293B; border: 1px solid #334155; border-radius: var(--radius-lg); padding: 20px;">
+        <h3 class="font-heading" style="color: white; font-size: 1.1rem; margin-bottom: 14px;">Top Selling Crops by Volume</h3>
+        <div style="height: 240px;">
+          <canvas id="topCropsChart"></canvas>
+        </div>
+      </div>
+
+      <div style="background: #1E293B; border: 1px solid #334155; border-radius: var(--radius-lg); padding: 20px;">
+        <h3 class="font-heading" style="color: white; font-size: 1.1rem; margin-bottom: 14px;">Active Farmers by Region</h3>
+        <div style="height: 240px;">
+          <canvas id="regionChart"></canvas>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Product Approval & User Management Table -->
+    <div style="background: #1E293B; border: 1px solid #334155; border-radius: var(--radius-lg); padding: 20px;">
+      <h3 class="font-heading" style="color: white; font-size: 1.2rem; margin-bottom: 16px;">🌾 Pending Crop Listings & Moderation Queue</h3>
+
+      <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem; color: #E2E8F0;">
+        <thead>
+          <tr style="background: #0F172A; text-align: left;">
+            <th style="padding: 10px;">Crop</th>
+            <th style="padding: 10px;">Farmer Name</th>
+            <th style="padding: 10px;">Location</th>
+            <th style="padding: 10px;">Direct Price</th>
+            <th style="padding: 10px;">Status</th>
+            <th style="padding: 10px;">Action</th>
+          </tr>
+        </thead>
+        <tbody id="admin-listings-table">
+          <!-- Renders via JS -->
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <script src="../js/store.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      initAdminCharts();
+      renderAdminTable();
+    });
+
+    function initAdminCharts() {
+      // 1. Top Crops Chart
+      const ctx1 = document.getElementById('topCropsChart').getContext('2d');
+      new Chart(ctx1, {
+        type: 'bar',
+        data: {
+          labels: ['Soybeans', 'Onions', 'Wheat', 'Turmeric', 'Tomatoes'],
+          datasets: [{
+            data: [420, 310, 280, 190, 150],
+            backgroundColor: ['#15803D', '#F97316', '#EAB308', '#0284C7', '#DC2626']
+          }]
+        },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+      });
+
+      // 2. Region Chart
+      const ctx2 = document.getElementById('regionChart').getContext('2d');
+      new Chart(ctx2, {
+        type: 'doughnut',
+        data: {
+          labels: ['Solapur', 'Nashik', 'Pune', 'Sangli', 'Wardha'],
+          datasets: [{
+            data: [35, 25, 20, 12, 8],
+            backgroundColor: ['#15803D', '#F97316', '#0284C7', '#EAB308', '#8B5CF6']
+          }]
+        },
+        options: { responsive: true, maintainAspectRatio: false }
+      });
+    }
+
+    function renderAdminTable() {
+      const products = window.store.getProducts();
+      const tbody = document.getElementById('admin-listings-table');
+
+      tbody.innerHTML = products.map(p => `
+        <tr style="border-bottom: 1px solid #334155;">
+          <td style="padding: 12px 10px; font-weight: 700; color: white;">${p.cropName}</td>
+          <td style="padding: 12px 10px;">${p.sellerName}</td>
+          <td style="padding: 12px 10px;">${p.location}</td>
+          <td style="padding: 12px 10px; color: var(--primary-light); font-weight: 700;">₹${p.directPrice} / ${p.unit}</td>
+          <td style="padding: 12px 10px;"><span style="background: #065F46; color: #34D399; padding: 2px 8px; border-radius: 12px; font-size: 0.75rem;">Approved</span></td>
+          <td style="padding: 12px 10px;">
+            <button class="btn btn-sm btn-outline" style="color: #FCA5A5; border-color: #DC2626;" onclick="alert('Listing updated.')">Moderate</button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function broadcastAlert() {
+      const title = document.getElementById('alert-title-input').value;
+      const body = document.getElementById('alert-body-input').value;
+      if (!title || !body) {
+        alert("Please enter title and body for alert broadcast.");
+        return;
+      }
+      alert(`🚀 Broadcast Emergency Alert Pushed to all 12,450 farmers!\nTitle: ${title}\nBody: ${body}`);
+      document.getElementById('alert-title-input').value = '';
+      document.getElementById('alert-body-input').value = '';
+    }
+  </script>
+</body>
+</html>

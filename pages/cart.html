@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Cart - KrishiSanjivani</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛒</text></svg>">
+</head>
+<body>
+
+  <!-- Govt Banner -->
+  <header class="govt-banner-strip">
+    <div class="govt-banner-left">
+      <span class="govt-emblem-badge">SIH 2026</span>
+      <span>Smart India Hackathon 2026 Prototype</span>
+    </div>
+    <div class="govt-banner-right">
+      <span class="banner-pill">Farmer Helpline: 1800-180-1551</span>
+    </div>
+  </header>
+
+  <!-- Navbar -->
+  <nav class="main-navbar">
+    <div class="navbar-container">
+      <a href="../index.html" class="navbar-brand">
+        <div class="brand-icon">🌱</div>
+        <div class="brand-text-container">
+          <span class="brand-title">KrishiSanjivani</span>
+          <span class="brand-subtitle">कृषी संजीवनी पोर्टल</span>
+        </div>
+      </a>
+
+      <ul class="navbar-links">
+        <li class="nav-item"><a href="dashboard.html"><span class="nav-icon">🏠</span> Home</a></li>
+        <li class="nav-item"><a href="buy.html"><span class="nav-icon">🛒</span> Buy</a></li>
+        <li class="nav-item"><a href="sell.html"><span class="nav-icon">🌾</span> Sell</a></li>
+        <li class="nav-item"><a href="rent.html"><span class="nav-icon">🚜</span> Rent</a></li>
+        <li class="nav-item"><a href="schemes.html"><span class="nav-icon">📜</span> Schemes</a></li>
+        <li class="nav-item"><a href="orders.html"><span class="nav-icon">📦</span> Orders</a></li>
+      </ul>
+
+      <div class="navbar-actions">
+        <select class="lang-selector-btn" onchange="window.i18n.setLanguage(this.value)">
+          <option value="en">🌐 EN</option>
+          <option value="hi">🇮🇳 HI</option>
+          <option value="mr">🚩 MR</option>
+        </select>
+        <a href="cart.html" class="cart-btn-link">🛒 <span class="cart-badge" id="cart-count">0</span></a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h1 class="font-heading" style="font-size: 1.8rem; color: var(--primary-dark); margin-bottom: 20px;">🛒 Shopping Cart & Order Summary</h1>
+
+    <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 24px;" id="cart-layout-container">
+      
+      <!-- Cart Items List -->
+      <div class="card" id="cart-items-box">
+        <!-- Rendered via JS -->
+      </div>
+
+      <!-- Price Breakdown & Checkout Card -->
+      <div>
+        <div class="card" style="box-shadow: var(--shadow-md);">
+          <h3 class="font-heading" style="font-size: 1.25rem; margin-bottom: 14px;">Price Breakdown</h3>
+
+          <!-- Price Savings Banner -->
+          <div style="background: #F0FDF4; border: 1.5px solid var(--border-green); padding: 14px; border-radius: var(--radius-md); margin-bottom: 16px;">
+            <div style="font-size: 0.825rem; color: var(--primary-dark); font-weight: 700;">✨ MIDDLEMAN SAVINGS METER</div>
+            <div style="font-size: 1.2rem; font-weight: 800; color: var(--primary-dark);" id="savings-amount-label">You Save ₹0 (0%)</div>
+            <div style="font-size: 0.775rem; color: var(--text-muted); margin-top: 2px;">Compared to traditional mandi middleman price.</div>
+          </div>
+
+          <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.95rem;">
+            <span>Farmer Direct Crop Total:</span> <span id="cart-subtotal">₹0</span>
+          </div>
+
+          <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.95rem;">
+            <span>AI Route Logistics Fee:</span> <span>₹150</span>
+          </div>
+
+          <div style="display: flex; justify-content: space-between; border-top: 1.5px dashed var(--border-light); padding-top: 12px; margin-top: 10px; font-size: 1.2rem; font-weight: 800; color: var(--primary-dark);">
+            <span>Total Amount:</span> <span id="cart-final-total">₹150</span>
+          </div>
+
+          <button class="btn btn-secondary btn-block btn-lg" style="margin-top: 20px;" onclick="proceedToPayment()">
+            💳 Proceed to Razorpay Payment
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="../js/firebase-config.js"></script>
+  <script src="../js/i18n.js"></script>
+  <script src="../js/store.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      renderCart();
+    });
+
+    function renderCart() {
+      const cart = window.store.getCart();
+      const cnt = window.store.getCartCount();
+      document.getElementById('cart-count').innerText = cnt;
+
+      const itemsBox = document.getElementById('cart-items-box');
+
+      if (!cart.length) {
+        itemsBox.innerHTML = `
+          <div style="text-align: center; padding: 40px;">
+            <div style="font-size: 3rem; margin-bottom: 10px;">🛒</div>
+            <h3>Your cart is empty</h3>
+            <p style="color: var(--text-muted); margin-top: 6px;">Browse fresh produce direct from farmers.</p>
+            <a href="buy.html" class="btn btn-primary" style="margin-top: 16px;">Browse Marketplace</a>
+          </div>
+        `;
+        document.getElementById('cart-subtotal').innerText = "₹0";
+        document.getElementById('cart-final-total').innerText = "₹0";
+        document.getElementById('savings-amount-label').innerText = "You Save ₹0 (0%)";
+        return;
+      }
+
+      itemsBox.innerHTML = cart.map(item => `
+        <div style="display: flex; gap: 16px; align-items: center; border-bottom: 1px solid var(--border-light); padding-bottom: 16px; margin-bottom: 16px;">
+          <img src="${item.photoURL}" alt="${item.cropName}" style="width: 80px; height: 80px; object-fit: cover; border-radius: var(--radius-md);">
+          <div style="flex: 1;">
+            <h4 class="font-heading">${item.cropName}</h4>
+            <div style="font-size: 0.85rem; color: var(--text-muted);">Seller: ${item.sellerName} (${item.location})</div>
+            <div style="font-weight: 800; color: var(--primary-dark); margin-top: 4px;">₹${item.directPrice} / ${item.unit}</div>
+          </div>
+
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <button class="btn btn-sm btn-outline" onclick="changeQty('${item.id}', -1)">-</button>
+            <span style="font-weight: 800; font-size: 1.1rem;">${item.selectedQty}</span>
+            <button class="btn btn-sm btn-outline" onclick="changeQty('${item.id}', 1)">+</button>
+          </div>
+
+          <div style="font-weight: 800; font-size: 1.1rem; width: 90px; text-align: right;">
+            ₹${item.directPrice * item.selectedQty}
+          </div>
+
+          <button onclick="window.store.removeFromCart('${item.id}'); renderCart();" style="background: none; border: none; font-size: 1.2rem; cursor: pointer; color: var(--danger);">🗑️</button>
+        </div>
+      `).join('');
+
+      const savings = window.store.getCartSavings();
+      document.getElementById('cart-subtotal').innerText = `₹${savings.totalDirect}`;
+      document.getElementById('cart-final-total').innerText = `₹${savings.totalDirect + 150}`;
+      document.getElementById('savings-amount-label').innerText = `You Save ₹${savings.savedAmount} (${savings.savedPercent}%)`;
+    }
+
+    function changeQty(id, delta) {
+      const cart = window.store.getCart();
+      const item = cart.find(i => i.id === id);
+      if (item) {
+        if (item.selectedQty + delta <= 0) {
+          window.store.removeFromCart(id);
+        } else {
+          window.store.addToCart(item, delta);
+        }
+        renderCart();
+      }
+    }
+
+    function proceedToPayment() {
+      const cart = window.store.getCart();
+      if (!cart.length) {
+        alert("Your cart is empty!");
+        return;
+      }
+      window.location.href = "payment.html";
+    }
+  </script>
+</body>
+</html>

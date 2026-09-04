@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather Forecast - KrishiSanjivani</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌤️</text></svg>">
+</head>
+<body>
+
+  <!-- Govt Banner -->
+  <header class="govt-banner-strip">
+    <div class="govt-banner-left">
+      <span class="govt-emblem-badge">SIH 2026</span>
+      <span>Smart India Hackathon 2026 Prototype</span>
+    </div>
+    <div class="govt-banner-right">
+      <span class="banner-pill">Farmer Helpline: 1800-180-1551</span>
+    </div>
+  </header>
+
+  <!-- Navbar -->
+  <nav class="main-navbar">
+    <div class="navbar-container">
+      <a href="../index.html" class="navbar-brand">
+        <div class="brand-icon">🌱</div>
+        <div class="brand-text-container">
+          <span class="brand-title">KrishiSanjivani</span>
+          <span class="brand-subtitle">कृषी संजीवनी पोर्टल</span>
+        </div>
+      </a>
+
+      <ul class="navbar-links">
+        <li class="nav-item"><a href="dashboard.html"><span class="nav-icon">🏠</span> Home</a></li>
+        <li class="nav-item"><a href="buy.html"><span class="nav-icon">🛒</span> Buy</a></li>
+        <li class="nav-item"><a href="sell.html"><span class="nav-icon">🌾</span> Sell</a></li>
+        <li class="nav-item"><a href="rent.html"><span class="nav-icon">🚜</span> Rent</a></li>
+        <li class="nav-item"><a href="schemes.html"><span class="nav-icon">📜</span> Schemes</a></li>
+        <li class="nav-item"><a href="orders.html"><span class="nav-icon">📦</span> Orders</a></li>
+      </ul>
+
+      <div class="navbar-actions">
+        <select class="lang-selector-btn" onchange="window.i18n.setLanguage(this.value)">
+          <option value="en">🌐 EN</option>
+          <option value="hi">🇮🇳 HI</option>
+          <option value="mr">🚩 MR</option>
+        </select>
+        <a href="cart.html" class="cart-btn-link">🛒 <span class="cart-badge" id="cart-count">0</span></a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div style="margin-bottom: 20px;">
+      <h1 class="font-heading" style="font-size: 1.8rem; color: var(--primary-dark);">🌤️ Location Weather Forecast & Farming Advisory</h1>
+      <p style="color: var(--text-muted);">Real-time weather data & crop care advice tailored for Solapur, Maharashtra</p>
+    </div>
+
+    <!-- Main Current Weather Display Card -->
+    <div class="card" style="background: linear-gradient(135deg, #0284C7 0%, #0369A1 100%); color: white; margin-bottom: 24px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+        <div style="display: flex; align-items: center; gap: 20px;">
+          <span style="font-size: 5rem;">🌤️</span>
+          <div>
+            <div style="font-size: 3.5rem; font-weight: 800; line-height: 1;">29°C</div>
+            <div style="font-size: 1.2rem; font-weight: 600;">Solapur, Maharashtra</div>
+            <div style="font-size: 0.95rem; opacity: 0.9;">Humidity: 62% | Wind: 14 km/h NE</div>
+          </div>
+        </div>
+
+        <div style="background: rgba(255,255,255,0.15); backdrop-filter: blur(6px); padding: 18px 24px; border-radius: var(--radius-lg); max-width: 340px;">
+          <h3 style="color: white; font-size: 1.1rem; margin-bottom: 6px;">🌾 Today's Field Advice</h3>
+          <p style="font-size: 0.9rem; line-height: 1.5;">Ideal conditions for harvesting mature Kharif Soybean. Rain probability is low (&lt;10%). Safe for outdoor drying.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5-Day Visual Forecast Cards Grid -->
+    <h2 class="font-heading" style="font-size: 1.4rem; margin-bottom: 16px;">📅 5-Day Weather Forecast</h2>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 14px; margin-bottom: 30px;">
+      
+      <div class="card" style="text-align: center; padding: 16px;">
+        <div style="font-weight: 700; color: var(--text-muted);">Today</div>
+        <div style="font-size: 2.4rem; margin: 8px 0;">🌤️</div>
+        <div style="font-weight: 800; font-size: 1.3rem; color: var(--primary-dark);">29°C</div>
+        <div style="font-size: 0.8rem; color: var(--text-muted);">Partly Sunny</div>
+      </div>
+
+      <div class="card" style="text-align: center; padding: 16px;">
+        <div style="font-weight: 700; color: var(--text-muted);">Tomorrow</div>
+        <div style="font-size: 2.4rem; margin: 8px 0;">☀️</div>
+        <div style="font-weight: 800; font-size: 1.3rem; color: var(--primary-dark);">31°C</div>
+        <div style="font-size: 0.8rem; color: var(--text-muted);">Clear Sky</div>
+      </div>
+
+      <div class="card" style="text-align: center; padding: 16px;">
+        <div style="font-weight: 700; color: var(--text-muted);">Saturday</div>
+        <div style="font-size: 2.4rem; margin: 8px 0;">🌦️</div>
+        <div style="font-weight: 800; font-size: 1.3rem; color: var(--primary-dark);">27°C</div>
+        <div style="font-size: 0.8rem; color: var(--text-muted);">Light Drizzle</div>
+      </div>
+
+      <div class="card" style="text-align: center; padding: 16px;">
+        <div style="font-weight: 700; color: var(--text-muted);">Sunday</div>
+        <div style="font-size: 2.4rem; margin: 8px 0;">☀️</div>
+        <div style="font-weight: 800; font-size: 1.3rem; color: var(--primary-dark);">30°C</div>
+        <div style="font-size: 0.8rem; color: var(--text-muted);">Sunny</div>
+      </div>
+
+      <div class="card" style="text-align: center; padding: 16px;">
+        <div style="font-weight: 700; color: var(--text-muted);">Monday</div>
+        <div style="font-size: 2.4rem; margin: 8px 0;">🌤️</div>
+        <div style="font-weight: 800; font-size: 1.3rem; color: var(--primary-dark);">28°C</div>
+        <div style="font-size: 0.8rem; color: var(--text-muted);">Partly Cloudy</div>
+      </div>
+
+    </div>
+
+    <!-- Seasonal Crop Advisory Section -->
+    <div class="card">
+      <h3 class="font-heading" style="font-size: 1.3rem; margin-bottom: 14px;">🌱 September Sowing & Harvest Calendar</h3>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px;">
+        
+        <div style="background: #F0FDF4; border-left: 4px solid var(--primary); padding: 14px; border-radius: var(--radius-sm);">
+          <h4 style="color: var(--primary-dark);">🌾 Wheat & Rabi Crops</h4>
+          <p style="font-size: 0.875rem; margin-top: 4px;">Soil moisture levels are good. Begin land preparation for Sharbati Wheat sowing in October.</p>
+        </div>
+
+        <div style="background: #FFFBEB; border-left: 4px solid var(--accent-gold); padding: 14px; border-radius: var(--radius-sm);">
+          <h4 style="color: #B45309;">🧅 Red Onion Harvest</h4>
+          <p style="font-size: 0.875rem; margin-top: 4px;">Dry harvested onions under shade for 4 days before packing to prevent rot.</p>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <script src="../js/firebase-config.js"></script>
+  <script src="../js/i18n.js"></script>
+  <script src="../js/store.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('cart-count').innerText = window.store.getCartCount();
+    });
+  </script>
+</body>
+</html>

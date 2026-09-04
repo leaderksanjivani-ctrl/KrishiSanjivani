@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile - KrishiSanjivani</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👤</text></svg>">
+</head>
+<body>
+
+  <!-- Govt Banner -->
+  <header class="govt-banner-strip">
+    <div class="govt-banner-left">
+      <span class="govt-emblem-badge">SIH 2026</span>
+      <span>Smart India Hackathon 2026 Prototype</span>
+    </div>
+    <div class="govt-banner-right">
+      <span class="banner-pill">Farmer Helpline: 1800-180-1551</span>
+    </div>
+  </header>
+
+  <!-- Navbar -->
+  <nav class="main-navbar">
+    <div class="navbar-container">
+      <a href="../index.html" class="navbar-brand">
+        <div class="brand-icon">🌱</div>
+        <div class="brand-text-container">
+          <span class="brand-title">KrishiSanjivani</span>
+          <span class="brand-subtitle">कृषी संजीवनी पोर्टल</span>
+        </div>
+      </a>
+
+      <ul class="navbar-links">
+        <li class="nav-item"><a href="dashboard.html"><span class="nav-icon">🏠</span> Home</a></li>
+        <li class="nav-item"><a href="buy.html"><span class="nav-icon">🛒</span> Buy</a></li>
+        <li class="nav-item"><a href="sell.html"><span class="nav-icon">🌾</span> Sell</a></li>
+        <li class="nav-item"><a href="rent.html"><span class="nav-icon">🚜</span> Rent</a></li>
+        <li class="nav-item"><a href="schemes.html"><span class="nav-icon">📜</span> Schemes</a></li>
+        <li class="nav-item"><a href="orders.html"><span class="nav-icon">📦</span> Orders</a></li>
+      </ul>
+
+      <div class="navbar-actions">
+        <select class="lang-selector-btn" onchange="window.i18n.setLanguage(this.value)">
+          <option value="en">🌐 EN</option>
+          <option value="hi">🇮🇳 HI</option>
+          <option value="mr">🚩 MR</option>
+        </select>
+        <a href="cart.html" class="cart-btn-link">🛒 <span class="cart-badge" id="cart-count">0</span></a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container" style="max-width: 760px;">
+    
+    <!-- Profile Card Header -->
+    <div class="card" style="margin-bottom: 24px; box-shadow: var(--shadow-md);">
+      <div style="display: flex; align-items: center; gap: 20px; flex-wrap: wrap;">
+        <div style="width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: white; display: flex; align-items: center; justify-content: center; font-size: 2.5rem;">
+          👨‍🌾
+        </div>
+
+        <div style="flex: 1;">
+          <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+            <h1 class="font-heading" style="font-size: 1.6rem; color: var(--primary-dark);" id="profile-name">Ramesh Patil</h1>
+            <span class="price-savings-tag" style="background: var(--accent-gold); color: black;">⭐ 4.9 Verified Farmer</span>
+          </div>
+          <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 4px;" id="profile-details">📍 Solapur, Maharashtra | Role: Farmer / Seller</p>
+        </div>
+
+        <button class="btn btn-sm btn-outline" style="color: var(--danger); border-color: var(--danger);" onclick="window.authManager.logout()">Logout 🚪</button>
+      </div>
+    </div>
+
+    <!-- Community FPO Group Pooling Widget -->
+    <div class="card" style="background: #F0FDF4; border: 2px solid var(--border-green); margin-bottom: 24px;">
+      <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+        <span style="font-size: 2rem;">🤝</span>
+        <div>
+          <h3 class="font-heading" style="color: var(--primary-dark); font-size: 1.2rem;">Community / FPO Bulk Produce Pooling</h3>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">Solapur Organic Farmers Producer Co-operative</p>
+        </div>
+      </div>
+
+      <p style="font-size: 0.9rem; line-height: 1.5; color: var(--text-main); margin-bottom: 14px;">
+        Farmers in your village have pooled <strong>180 Quintals of Soybean</strong> for bulk shipment to Pune processors. Pooling reduces transport fee by 35%.
+      </p>
+
+      <button class="btn btn-primary btn-sm" onclick="alert('You have joined the Solapur Soybean Bulk Group! 20 Quintals allocated for joint dispatch.')">
+        ➕ Pool My Harvest into Village Group
+      </button>
+    </div>
+
+    <!-- Update Profile Form -->
+    <div class="card">
+      <h3 class="font-heading" style="margin-bottom: 16px;">✏️ Personal Details & Preferences</h3>
+
+      <form onsubmit="handleProfileUpdate(event)">
+        <div class="form-group">
+          <label class="form-label">Full Name</label>
+          <input type="text" id="edit-name" class="form-control" value="Ramesh Patil" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Mobile Number</label>
+          <input type="text" id="edit-phone" class="form-control" value="+91 98230 11223" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Village / Location</label>
+          <input type="text" id="edit-village" class="form-control" value="Mohol, Solapur" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Primary Role</label>
+          <select id="edit-role" class="form-control">
+            <option value="Farmer">Farmer / Produce Seller</option>
+            <option value="Buyer">Consumer / Bulk Buyer</option>
+            <option value="Renter">Equipment Owner</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn btn-secondary btn-block">Save Profile Changes</button>
+      </form>
+    </div>
+
+  </div>
+
+  <script src="../js/firebase-config.js"></script>
+  <script src="../js/i18n.js"></script>
+  <script src="../js/store.js"></script>
+  <script src="../js/auth.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('cart-count').innerText = window.store.getCartCount();
+      const u = window.store.getUser();
+      if (u && u.name) {
+        document.getElementById('profile-name').innerText = u.name;
+        document.getElementById('profile-details').innerText = `📍 ${u.village || 'Solapur, MH'} | Role: ${u.role || 'Farmer'}`;
+        document.getElementById('edit-name').value = u.name;
+        document.getElementById('edit-phone').value = u.phone || "+91 98230 11223";
+        document.getElementById('edit-village').value = u.village || "Mohol, Solapur";
+      }
+    });
+
+    function handleProfileUpdate(e) {
+      e.preventDefault();
+      const updated = {
+        ...window.store.getUser(),
+        name: document.getElementById('edit-name').value,
+        phone: document.getElementById('edit-phone').value,
+        village: document.getElementById('edit-village').value,
+        role: document.getElementById('edit-role').value
+      };
+      window.store.saveUser(updated);
+      alert("✅ Profile updated successfully!");
+      window.location.reload();
+    }
+  </script>
+</body>
+</html>

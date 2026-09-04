@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Help & Visual Guide - KrishiSanjivani</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❓</text></svg>">
+</head>
+<body>
+
+  <!-- Govt Banner -->
+  <header class="govt-banner-strip">
+    <div class="govt-banner-left">
+      <span class="govt-emblem-badge">SIH 2026</span>
+      <span>Farmer Visual Assistance & Helpline Center</span>
+    </div>
+    <div class="govt-banner-right">
+      <span class="banner-pill">Free Call: 1800-180-1551</span>
+    </div>
+  </header>
+
+  <!-- Navbar -->
+  <nav class="main-navbar">
+    <div class="navbar-container">
+      <a href="../index.html" class="navbar-brand">
+        <div class="brand-icon">🌱</div>
+        <div class="brand-text-container">
+          <span class="brand-title">KrishiSanjivani</span>
+          <span class="brand-subtitle">कृषी संजीवनी पोर्टल</span>
+        </div>
+      </a>
+
+      <ul class="navbar-links">
+        <li class="nav-item"><a href="dashboard.html"><span class="nav-icon">🏠</span> Home</a></li>
+        <li class="nav-item"><a href="buy.html"><span class="nav-icon">🛒</span> Buy</a></li>
+        <li class="nav-item"><a href="sell.html"><span class="nav-icon">🌾</span> Sell</a></li>
+        <li class="nav-item"><a href="rent.html"><span class="nav-icon">🚜</span> Rent</a></li>
+        <li class="nav-item"><a href="schemes.html"><span class="nav-icon">📜</span> Schemes</a></li>
+        <li class="nav-item"><a href="orders.html"><span class="nav-icon">📦</span> Orders</a></li>
+      </ul>
+
+      <div class="navbar-actions">
+        <select class="lang-selector-btn" onchange="window.i18n.setLanguage(this.value)">
+          <option value="en">🌐 EN</option>
+          <option value="hi">🇮🇳 HI</option>
+          <option value="mr">🚩 MR</option>
+        </select>
+        <a href="cart.html" class="cart-btn-link">🛒 <span class="cart-badge" id="cart-count">0</span></a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div style="margin-bottom: 24px;">
+      <h1 class="font-heading" style="font-size: 1.8rem; color: var(--primary-dark);">❓ Easy Visual How-To Guides (मदद व मार्गदर्शन)</h1>
+      <p style="color: var(--text-muted);">Step-by-step 3-picture guides designed for quick understanding.</p>
+    </div>
+
+    <!-- Guide 1: How to Sell Produce -->
+    <div class="card" style="margin-bottom: 24px; border-left: 5px solid var(--primary);">
+      <h2 class="font-heading" style="color: var(--primary-dark); margin-bottom: 16px;">🌾 How to Sell Crop Direct (3 Easy Steps)</h2>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px;">
+        
+        <div style="background: #F8FAFC; padding: 16px; border-radius: var(--radius-md); text-align: center;">
+          <div style="width: 50px; height: 50px; background: var(--primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; font-weight: 800; margin: 0 auto 10px auto;">1</div>
+          <div style="font-size: 2.5rem; margin-bottom: 8px;">📸</div>
+          <h4 style="font-size: 1rem; margin-bottom: 4px;">Tap "Sell Produce"</h4>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">Fill crop name, price, and upload 1 farm photo.</p>
+        </div>
+
+        <div style="background: #F8FAFC; padding: 16px; border-radius: var(--radius-md); text-align: center;">
+          <div style="width: 50px; height: 50px; background: var(--secondary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; font-weight: 800; margin: 0 auto 10px auto;">2</div>
+          <div style="font-size: 2.5rem; margin-bottom: 8px;">🤝</div>
+          <h4 style="font-size: 1rem; margin-bottom: 4px;">Get Direct Buyer Call</h4>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">Buyers view your price and order without middleman cut.</p>
+        </div>
+
+        <div style="background: #F8FAFC; padding: 16px; border-radius: var(--radius-md); text-align: center;">
+          <div style="width: 50px; height: 50px; background: var(--success); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; font-weight: 800; margin: 0 auto 10px auto;">3</div>
+          <div style="font-size: 2.5rem; margin-bottom: 8px;">💰</div>
+          <h4 style="font-size: 1rem; margin-bottom: 4px;">Receive Full Bank Payment</h4>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">Get 100% of your listing amount directly into your bank.</p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Guide 2: How to Rent Tractor -->
+    <div class="card" style="margin-bottom: 24px; border-left: 5px solid var(--secondary);">
+      <h2 class="font-heading" style="color: var(--secondary-hover); margin-bottom: 16px;">🚜 How to Rent Tractor / Drone</h2>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px;">
+        
+        <div style="background: #F8FAFC; padding: 16px; border-radius: var(--radius-md); text-align: center;">
+          <div style="font-size: 2.5rem; margin-bottom: 8px;">🔍</div>
+          <h4 style="font-size: 1rem; margin-bottom: 4px;">Select Nearby Machine</h4>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">Choose tractor or drone from your district.</p>
+        </div>
+
+        <div style="background: #F8FAFC; padding: 16px; border-radius: var(--radius-md); text-align: center;">
+          <div style="font-size: 2.5rem; margin-bottom: 8px;">📅</div>
+          <h4 style="font-size: 1rem; margin-bottom: 4px;">Pick Booking Date</h4>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">Select dates needed for field work.</p>
+        </div>
+
+        <div style="background: #F8FAFC; padding: 16px; border-radius: var(--radius-md); text-align: center;">
+          <div style="font-size: 2.5rem; margin-bottom: 8px;">🚜</div>
+          <h4 style="font-size: 1rem; margin-bottom: 4px;">Owner Delivers Machine</h4>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">Machine arrives at field at agreed time.</p>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <script src="../js/firebase-config.js"></script>
+  <script src="../js/i18n.js"></script>
+  <script src="../js/store.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('cart-count').innerText = window.store.getCartCount();
+    });
+  </script>
+</body>
+</html>

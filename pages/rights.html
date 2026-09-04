@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Farmer Rights & Acts - KrishiSanjivani</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚖️</text></svg>">
+</head>
+<body>
+
+  <!-- Govt Banner -->
+  <header class="govt-banner-strip">
+    <div class="govt-banner-left">
+      <span class="govt-emblem-badge">SIH 2026</span>
+      <span>Smart India Hackathon 2026 Prototype</span>
+    </div>
+    <div class="govt-banner-right">
+      <span class="banner-pill">Farmer Legal Cell: 1800-180-1551</span>
+    </div>
+  </header>
+
+  <!-- Navbar -->
+  <nav class="main-navbar">
+    <div class="navbar-container">
+      <a href="../index.html" class="navbar-brand">
+        <div class="brand-icon">🌱</div>
+        <div class="brand-text-container">
+          <span class="brand-title">KrishiSanjivani</span>
+          <span class="brand-subtitle">कृषी संजीवनी पोर्टल</span>
+        </div>
+      </a>
+
+      <ul class="navbar-links">
+        <li class="nav-item"><a href="dashboard.html"><span class="nav-icon">🏠</span> Home</a></li>
+        <li class="nav-item"><a href="buy.html"><span class="nav-icon">🛒</span> Buy</a></li>
+        <li class="nav-item"><a href="sell.html"><span class="nav-icon">🌾</span> Sell</a></li>
+        <li class="nav-item"><a href="rent.html"><span class="nav-icon">🚜</span> Rent</a></li>
+        <li class="nav-item"><a href="schemes.html"><span class="nav-icon">📜</span> Schemes</a></li>
+        <li class="nav-item"><a href="orders.html"><span class="nav-icon">📦</span> Orders</a></li>
+      </ul>
+
+      <div class="navbar-actions">
+        <select class="lang-selector-btn" onchange="window.i18n.setLanguage(this.value)">
+          <option value="en">🌐 EN</option>
+          <option value="hi">🇮🇳 HI</option>
+          <option value="mr">🚩 MR</option>
+        </select>
+        <a href="cart.html" class="cart-btn-link">🛒 <span class="cart-badge" id="cart-count">0</span></a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div style="margin-bottom: 24px;">
+      <h1 class="font-heading" style="font-size: 1.8rem; color: var(--primary-dark);">⚖️ Farmer Rights & Agricultural Acts (किसान अधिकार)</h1>
+      <p style="color: var(--text-muted);">Simplified, icon-based legal rights every Indian farmer should know.</p>
+    </div>
+
+    <!-- Rights Cards Grid -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px;">
+      
+      <!-- Right 1: Direct Sale Freedom -->
+      <div class="card" style="border-top: 4px solid var(--primary);">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+          <span style="font-size: 2.2rem; background: var(--primary-soft); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">🏪</span>
+          <h3 class="font-heading" style="font-size: 1.2rem;">Right to Sell Anywhere (Freedom of Trade)</h3>
+        </div>
+        <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6;">
+          You are legally free to sell your produce directly to consumers, FPOs, food processors, or bulk buyers outside the traditional APMC mandi without paying mandatory agent commission fees.
+        </p>
+      </div>
+
+      <!-- Right 2: Minimum Support Price (MSP) -->
+      <div class="card" style="border-top: 4px solid var(--secondary);">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+          <span style="font-size: 2.2rem; background: var(--secondary-soft); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">💰</span>
+          <h3 class="font-heading" style="font-size: 1.2rem;">MSP Procurement Guarantee</h3>
+        </div>
+        <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6;">
+          The Government fixes Minimum Support Prices (MSP) for 22 notified crops. Government procurement centers must purchase notified crops at or above MSP during procurement season.
+        </p>
+      </div>
+
+      <!-- Right 3: 7/12 Land Record Ownership Rights -->
+      <div class="card" style="border-top: 4px solid var(--accent-blue);">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+          <span style="font-size: 2.2rem; background: #E0F2FE; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">📜</span>
+          <h3 class="font-heading" style="font-size: 1.2rem;">Digital 7/12 Record & Subsidy Protection</h3>
+        </div>
+        <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6;">
+          Your digital Mahabhulekh (7/12 extract) is your proof of agricultural land. No private buyer or trader can claim rights or mortgage over your farmland during trade transactions.
+        </p>
+      </div>
+
+      <!-- Right 4: Crop Insurance Dispute Resolution -->
+      <div class="card" style="border-top: 4px solid var(--danger);">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+          <span style="font-size: 2.2rem; background: #FEE2E2; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">🛡️</span>
+          <h3 class="font-heading" style="font-size: 1.2rem;">72-Hour Crop Loss Claim Right</h3>
+        </div>
+        <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6;">
+          In case of localized storm or flood damage, you have the right to report crop loss to PMFBY within 72 hours via the Crop Insurance App or Toll-Free number for 100% claim assessment.
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="../js/firebase-config.js"></script>
+  <script src="../js/i18n.js"></script>
+  <script src="../js/store.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('cart-count').innerText = window.store.getCartCount();
+    });
+  </script>
+</body>
+</html>
