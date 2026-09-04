@@ -5,7 +5,7 @@
 const translations = {
   en: {
     // Govt Banner
-    "govt_title": "Smart India Hackathon 2026 Prototype | Government of India Standard",
+    "govt_title": "Smart India Hackathon 2026 Prototype",
     "toll_free": "Farmer Helpline: 1800-180-1551",
     
     // Navbar
@@ -69,7 +69,7 @@ const translations = {
   
   hi: {
     // Govt Banner
-    "govt_title": "स्मार्ट इंडिया हैकथॉन 2026 मॉडल | भारत सरकार मानक",
+    "govt_title": "स्मार्ट इंडिया हैकथॉन 2026 मॉडल",
     "toll_free": "किसान हेल्पलाइन: 1800-180-1551",
     
     // Navbar
@@ -133,7 +133,7 @@ const translations = {
   
   mr: {
     // Govt Banner
-    "govt_title": "स्मार्ट इंडिया हॅकाथॉन 2026 मॉडेल | भारत सरकार मानक",
+    "govt_title": "स्मार्ट इंडिया हॅकाथॉन 2026 मॉडेल",
     "toll_free": "शेतकरी हेल्पलाइन: 1800-180-1551",
     
     // Navbar
