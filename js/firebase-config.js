@@ -1,60 +1,33 @@
 /* ==========================================================================
    KRISHISANJIVANI - FIREBASE & DATABASE CONFIGURATION (SIH 2026)
-   ==========================================================================
-   
-   INSTRUCTIONS TO CONNECT REAL FIREBASE PROJECT:
-   --------------------------------------------------------------------------
-   1. Go to https://console.firebase.google.com/ and create a new project.
-   2. Enable Firebase Authentication (Email/Password & Google Auth provider).
-   3. Create a Cloud Firestore Database in production mode.
-   4. Set up Firestore Security Rules as follows:
-      rules_version = '2';
-      service cloud.firestore {
-        match /databases/{database}/documents {
-          match /users/{userId} {
-            allow read, write: if request.auth != null;
-          }
-          match /products/{productId} {
-            allow read: if true;
-            allow write: if request.auth != null;
-          }
-          match /equipment/{equipId} {
-            allow read: if true;
-            allow write: if request.auth != null;
-          }
-          match /orders/{orderId} {
-            allow read, write: if request.auth != null;
-          }
-          match /schemes/{schemeId} {
-            allow read: if true;
-            allow write: if request.auth != null && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == "admin";
-          }
-        }
-      }
-   5. Enable Firebase Storage for product photos and document uploads.
-   6. Paste your Firebase credentials into `firebaseConfig` object below.
    ========================================================================== */
 
+// Firebase Configuration (Loaded from .env / console)
 const firebaseConfig = {
-  apiKey: "YOUR_FIREBASE_API_KEY",
-  authDomain: "krishisanjivani-sih2026.firebaseapp.com",
-  projectId: "krishisanjivani-sih2026",
-  storageBucket: "krishisanjivani-sih2026.appspot.com",
-  messagingSenderId: "123456789012",
-  appId: "1:123456789012:web:abcdef123456"
+  apiKey: (typeof window !== 'undefined' && window.ENV && window.ENV.FIREBASE_API_KEY) || "AIzaSyD54FeG00c4_eIH1VBK9iVu9NiAslM0fRI",
+  authDomain: (typeof window !== 'undefined' && window.ENV && window.ENV.FIREBASE_AUTH_DOMAIN) || "krishisanjivani-b06f6.firebaseapp.com",
+  projectId: (typeof window !== 'undefined' && window.ENV && window.ENV.FIREBASE_PROJECT_ID) || "krishisanjivani-b06f6",
+  storageBucket: (typeof window !== 'undefined' && window.ENV && window.ENV.FIREBASE_STORAGE_BUCKET) || "krishisanjivani-b06f6.firebasestorage.app",
+  messagingSenderId: (typeof window !== 'undefined' && window.ENV && window.ENV.FIREBASE_MESSAGING_SENDER_ID) || "566300747155",
+  appId: (typeof window !== 'undefined' && window.ENV && window.ENV.FIREBASE_APP_ID) || "1:566300747155:web:c8ea14cd81c93ff5a8b466",
+  measurementId: (typeof window !== 'undefined' && window.ENV && window.ENV.FIREBASE_MEASUREMENT_ID) || "G-5QWBNR993P"
 };
 
-// Check if real Firebase SDK is loaded on page
+// Expose configuration object globally
+window.firebaseConfig = firebaseConfig;
 window.isFirebaseConfigured = false;
 
 try {
-  if (typeof firebase !== 'undefined' && firebase.initializeApp && firebaseConfig.apiKey !== "YOUR_FIREBASE_API_KEY") {
+  if (typeof firebase !== 'undefined' && firebase.initializeApp && firebaseConfig.apiKey && firebaseConfig.apiKey !== "YOUR_FIREBASE_API_KEY") {
     firebase.initializeApp(firebaseConfig);
     window.db = firebase.firestore();
     window.auth = firebase.auth();
     window.storage = firebase.storage();
+    if (firebase.analytics) {
+      window.analytics = firebase.analytics();
+    }
     window.isFirebaseConfigured = true;
-    console.log("🔥 Firebase initialized successfully!");
+    console.log("🔥 Firebase initialized successfully with project:", firebaseConfig.projectId);
   } else {
     console.log("ℹ️ Running in Local Storage / Mock Firestore mode (Demo Ready).");
   }

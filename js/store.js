@@ -315,3 +315,32 @@ class DataStore {
 }
 
 window.store = new DataStore();
+
+// Mobile Navigation Drawer Helper
+window.toggleMobileMenu = function() {
+  const navLinks = document.querySelector('.navbar-links');
+  const btn = document.getElementById('nav-toggle-btn');
+  if (navLinks) {
+    const isActive = navLinks.classList.toggle('active');
+    if (btn) {
+      btn.setAttribute('aria-expanded', isActive);
+    }
+  }
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+  const btn = document.getElementById('nav-toggle-btn');
+  if (btn) {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      window.toggleMobileMenu();
+    });
+  }
+  document.addEventListener('click', (e) => {
+    const navbar = document.querySelector('.main-navbar');
+    const navLinks = document.querySelector('.navbar-links');
+    if (navLinks && navLinks.classList.contains('active') && navbar && !navbar.contains(e.target)) {
+      navLinks.classList.remove('active');
+    }
+  });
+});

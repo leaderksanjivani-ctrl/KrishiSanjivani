@@ -7,7 +7,7 @@ const translations = {
     // Govt Banner
     "govt_title": "Smart India Hackathon 2026 Prototype",
     "toll_free": "Farmer Helpline: 1800-180-1551",
-    
+
     // Navbar
     "nav_home": "Home",
     "nav_buy": "Buy Produce",
@@ -18,7 +18,7 @@ const translations = {
     "nav_help": "Help",
     "nav_login": "Login / Signup",
     "nav_low_data": "Low Data",
-    
+
     // Tiles
     "tile_weather": "Weather",
     "tile_buy": "Buy Produce",
@@ -61,17 +61,17 @@ const translations = {
     "btn_pay": "Proceed to Pay",
     "btn_apply": "Apply Now",
     "btn_view": "View Details",
-    
+
     // Voice prompt
     "voice_listening": "Listening... Speak your crop or requirement now.",
     "voice_tap_mic": "Tap mic to search using voice"
   },
-  
+
   hi: {
     // Govt Banner
     "govt_title": "स्मार्ट इंडिया हैकथॉन 2026 मॉडल",
     "toll_free": "किसान हेल्पलाइन: 1800-180-1551",
-    
+
     // Navbar
     "nav_home": "मुख्य पृष्ठ",
     "nav_buy": "फसल खरीदें",
@@ -82,7 +82,7 @@ const translations = {
     "nav_help": "सहायता",
     "nav_login": "लॉगिन / साइनअप",
     "nav_low_data": "कम डेटा",
-    
+
     // Tiles
     "tile_weather": "मौसम जानकारी",
     "tile_buy": "फसल खरीदें",
@@ -130,12 +130,12 @@ const translations = {
     "voice_listening": "सुन रहे हैं... फसल या सवाल बोलें।",
     "voice_tap_mic": "बोलकर खोजने के लिए माइक दबाएं"
   },
-  
+
   mr: {
     // Govt Banner
     "govt_title": "स्मार्ट इंडिया हॅकाथॉन 2026 मॉडेल",
     "toll_free": "शेतकरी हेल्पलाइन: 1800-180-1551",
-    
+
     // Navbar
     "nav_home": "मुख्य पान",
     "nav_buy": "शेतमाल खरेदी",
@@ -146,7 +146,7 @@ const translations = {
     "nav_help": "मदत",
     "nav_login": "लॉगिन / नोंदणी",
     "nav_low_data": "कमी डेटा",
-    
+
     // Tiles
     "tile_weather": "हवामान अंदाज",
     "tile_buy": "शेतमाल खरेदी",

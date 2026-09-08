@@ -41,6 +41,7 @@
       </ul>
 
       <div class="navbar-actions">
+        <button class="navbar-hamburger" id="nav-toggle-btn" aria-label="Toggle navigation">☰</button>
         <select class="lang-selector-btn" onchange="window.i18n.setLanguage(this.value)">
           <option value="en">🌐 EN</option>
           <option value="hi">🇮🇳 HI</option>
@@ -87,7 +88,7 @@
         </div>
 
         <!-- Quantity & Unit -->
-        <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 14px;">
+        <div class="grid-2-1">
           <div class="form-group">
             <label class="form-label">Quantity Available</label>
             <input type="number" id="crop-qty" class="form-control" placeholder="e.g. 50" required min="1">
@@ -110,7 +111,7 @@
         </div>
 
         <!-- Harvest Date & Location -->
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+        <div class="grid-1-1">
           <div class="form-group">
             <label class="form-label">Harvest Date</label>
             <input type="date" id="crop-date" class="form-control" required>

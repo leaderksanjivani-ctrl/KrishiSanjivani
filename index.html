@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>KrishiSanjivani - Direct Farmer Marketplace & Smart Logistics (SIH 2026)</title>
-  <meta name="description" content="Connecting Indian farmers directly with consumers and bulk buyers. Fair prices, AI demand forecasting, and zero middleman exploitation.">
+  <meta name="description"
+    content="Connecting Indian farmers directly with consumers and bulk buyers. Fair prices, AI demand forecasting, and zero middleman exploitation.">
   <link rel="stylesheet" href="css/styles.css">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌱</text></svg>">
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌱</text></svg>">
 </head>
+
 <body>
 
   <!-- Govt Top Info Strip -->
@@ -33,15 +37,24 @@
       </a>
 
       <ul class="navbar-links">
-        <li class="nav-item active"><a href="index.html"><span class="nav-icon">🏠</span> <span data-i18n="nav_home">Home</span></a></li>
-        <li class="nav-item"><a href="pages/buy.html"><span class="nav-icon">🛒</span> <span data-i18n="nav_buy">Buy Produce</span></a></li>
-        <li class="nav-item"><a href="pages/sell.html"><span class="nav-icon">🌾</span> <span data-i18n="nav_sell">Sell Produce</span></a></li>
-        <li class="nav-item"><a href="pages/rent.html"><span class="nav-icon">🚜</span> <span data-i18n="nav_rent">Rent Equipment</span></a></li>
-        <li class="nav-item"><a href="pages/schemes.html"><span class="nav-icon">📜</span> <span data-i18n="nav_schemes">Schemes</span></a></li>
-        <li class="nav-item"><a href="pages/orders.html"><span class="nav-icon">📦</span> <span data-i18n="nav_orders">My Orders</span></a></li>
+        <li class="nav-item active"><a href="index.html"><span class="nav-icon">🏠</span> <span
+              data-i18n="nav_home">Home</span></a></li>
+        <li class="nav-item"><a href="pages/buy.html"><span class="nav-icon">🛒</span> <span data-i18n="nav_buy">Buy
+              Produce</span></a></li>
+        <li class="nav-item"><a href="pages/sell.html"><span class="nav-icon">🌾</span> <span data-i18n="nav_sell">Sell
+              Produce</span></a></li>
+        <li class="nav-item"><a href="pages/rent.html"><span class="nav-icon">🚜</span> <span data-i18n="nav_rent">Rent
+              Equipment</span></a></li>
+        <li class="nav-item"><a href="pages/schemes.html"><span class="nav-icon">📜</span> <span
+              data-i18n="nav_schemes">Schemes</span></a></li>
+        <li class="nav-item"><a href="pages/orders.html"><span class="nav-icon">📦</span> <span
+              data-i18n="nav_orders">My Orders</span></a></li>
       </ul>
 
       <div class="navbar-actions">
+        <!-- Mobile Menu Hamburger Button -->
+        <button class="navbar-hamburger" id="nav-toggle-btn" aria-label="Toggle navigation">☰</button>
+
         <!-- Multilingual Language Selector -->
         <select class="lang-selector-btn" id="lang-select" onchange="window.i18n.setLanguage(this.value)">
           <option value="en">🌐 EN (English)</option>
@@ -50,7 +63,8 @@
         </select>
 
         <!-- Voice Search Hook -->
-        <button class="voice-trigger-btn" onclick="window.speechHelper.startListening('hero-search')" title="Voice Search">
+        <button class="voice-trigger-btn" onclick="window.speechHelper.startListening('hero-search')"
+          title="Voice Search">
           🎙️
         </button>
 
@@ -74,36 +88,51 @@
         <span class="alert-icon">⚠️</span>
         <div class="alert-text">
           <h4 data-i18n="pest_alert_title">Emergency Pest Advisory Alert</h4>
-          <p data-i18n="pest_alert_body">Locust & Stem borer warning in Solapur region. Apply Neem spray immediately.</p>
+          <p data-i18n="pest_alert_body">Locust & Stem borer warning in Solapur region. Apply Neem spray immediately.
+          </p>
         </div>
       </div>
-      <a href="pages/weather.html" class="btn btn-sm btn-outline" style="border-color: #DC2626; color: #DC2626;">Advisory Details</a>
+      <a href="pages/weather.html" class="btn btn-sm btn-outline"
+        style="border-color: #DC2626; color: #DC2626;">Advisory Details</a>
     </div>
   </div>
 
   <!-- Hero Banner -->
   <section class="container">
-    <div class="card" style="background: linear-gradient(135deg, #14532D 0%, #15803D 50%, #16A34A 100%); color: white; border: none; padding: 40px 32px; box-shadow: var(--shadow-lg);">
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; align-items: center;">
+    <div class="card"
+      style="background: linear-gradient(135deg, #14532D 0%, #15803D 50%, #16A34A 100%); color: white; border: none; padding: 32px 24px; box-shadow: var(--shadow-lg);">
+      <div
+        style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 30px; align-items: center;">
         <div>
-          <span style="background: var(--secondary); color: white; padding: 4px 14px; border-radius: var(--radius-pill); font-weight: 800; font-size: 0.825rem; text-transform: uppercase; letter-spacing: 1px;">SIH 2026 Solution</span>
-          <h1 style="font-size: 2.5rem; color: white; margin: 16px 0 12px 0;" data-i18n="hero_title">Empowering Farmers, Eliminating Middlemen</h1>
-          <p style="font-size: 1.1rem; color: #DCFCE7; margin-bottom: 24px;" data-i18n="hero_subtitle">Direct marketplace connecting farmers with buyers. Fair prices for crops, lower cost for consumers, smart AI logistics.</p>
+          <span
+            style="background: var(--secondary); color: white; padding: 4px 14px; border-radius: var(--radius-pill); font-weight: 800; font-size: 0.825rem; text-transform: uppercase; letter-spacing: 1px;">SIH
+            2026 Solution</span>
+          <h1 style="font-size: 2.5rem; color: white; margin: 16px 0 12px 0;" data-i18n="hero_title">Empowering Farmers,
+            Eliminating Middlemen</h1>
+          <p style="font-size: 1.1rem; color: #DCFCE7; margin-bottom: 24px;" data-i18n="hero_subtitle">Direct
+            marketplace connecting farmers with buyers. Fair prices for crops, lower cost for consumers, smart AI
+            logistics.</p>
 
           <!-- Search Input with Voice mic -->
           <div class="voice-input-wrapper" style="margin-bottom: 20px;">
-            <input type="text" id="hero-search" class="form-control" placeholder="Search crops, tractors, schemes..." data-i18n-placeholder="voice_tap_mic" style="border-radius: var(--radius-pill); padding: 16px 50px 16px 20px; font-size: 1.05rem;">
-            <button class="mic-btn-inside" onclick="window.speechHelper.startListening('hero-search')" title="Speak now">🎙️</button>
+            <input type="text" id="hero-search" class="form-control" placeholder="Search crops, tractors, schemes..."
+              data-i18n-placeholder="voice_tap_mic"
+              style="border-radius: var(--radius-pill); padding: 16px 50px 16px 20px; font-size: 1.05rem;">
+            <button class="mic-btn-inside" onclick="window.speechHelper.startListening('hero-search')"
+              title="Speak now">🎙️</button>
           </div>
 
           <div style="display: flex; gap: 14px; flex-wrap: wrap;">
             <a href="pages/buy.html" class="btn btn-secondary btn-lg" data-i18n="cta_buy_now">Browse Direct Produce</a>
-            <a href="pages/sell.html" class="btn btn-outline btn-lg" style="color: white; border-color: white;" data-i18n="cta_sell_now">List Crop to Sell</a>
+            <a href="pages/sell.html" class="btn btn-outline btn-lg" style="color: white; border-color: white;"
+              data-i18n="cta_sell_now">List Crop to Sell</a>
           </div>
         </div>
 
         <div style="text-align: center;">
-          <img src="https://images.unsplash.com/photo-1595974482597-4b8da8879bc5?auto=format&fit=crop&w=700&q=80" alt="Indian Farmer" style="width: 100%; max-width: 440px; border-radius: var(--radius-lg); border: 4px solid rgba(255,255,255,0.3); box-shadow: 0 12px 30px rgba(0,0,0,0.3);">
+          <img src="https://images.unsplash.com/photo-1595974482597-4b8da8879bc5?auto=format&fit=crop&w=700&q=80"
+            alt="Indian Farmer"
+            style="width: 100%; max-width: 440px; border-radius: var(--radius-lg); border: 4px solid rgba(255,255,255,0.3); box-shadow: 0 12px 30px rgba(0,0,0,0.3);">
         </div>
       </div>
     </div>
@@ -117,16 +146,21 @@
         <span class="price-savings-tag">📊 Direct Price Transparency Meter</span>
       </div>
 
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-top: 16px;">
-        
+      <div
+        style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-top: 16px;">
+
         <!-- Old Middleman Model -->
         <div style="background: #FEF2F2; border: 2px solid #FCA5A5; border-radius: var(--radius-lg); padding: 20px;">
-          <h3 style="color: #991B1B; margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">❌ Traditional Mandi Model (5 Intermediaries)</h3>
-          <p style="font-size: 0.9rem; color: #7F1D1D; margin-bottom: 14px;">Local Agent → APMC Mandi → Wholesaler → Commission Agent → Retailer</p>
-          
+          <h3 style="color: #991B1B; margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">❌ Traditional
+            Mandi Model (5 Intermediaries)</h3>
+          <p style="font-size: 0.9rem; color: #7F1D1D; margin-bottom: 14px;">Local Agent → APMC Mandi → Wholesaler →
+            Commission Agent → Retailer</p>
+
           <div class="price-comparison-bar" style="background: white;">
-            <div class="price-row"><span>Farmer Earnings:</span> <span style="font-weight: 700; color: #DC2626;">₹20 / kg (44% share)</span></div>
-            <div class="price-row"><span>Middlemen Commission Cut:</span> <span style="font-weight: 700; color: #DC2626;">₹25 / kg (56% cut)</span></div>
+            <div class="price-row"><span>Farmer Earnings:</span> <span style="font-weight: 700; color: #DC2626;">₹20 /
+                kg (44% share)</span></div>
+            <div class="price-row"><span>Middlemen Commission Cut:</span> <span
+                style="font-weight: 700; color: #DC2626;">₹25 / kg (56% cut)</span></div>
             <div class="price-row" style="border-top: 1px dashed #FCA5A5; padding-top: 6px; margin-top: 6px;">
               <span>Consumer Retail Price:</span> <span class="mandi-price-strike">₹45 / kg</span>
             </div>
@@ -134,14 +168,20 @@
         </div>
 
         <!-- KrishiSanjivani Direct Model -->
-        <div style="background: #F0FDF4; border: 2px solid var(--border-green); border-radius: var(--radius-lg); padding: 20px;">
-          <h3 style="color: var(--primary-dark); margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">✅ KrishiSanjivani Direct Model (0 Intermediaries)</h3>
-          <p style="font-size: 0.9rem; color: var(--primary-dark); margin-bottom: 14px;">Farmer Direct → AI Optimized Logistics Hub → Consumer / Bulk Buyer</p>
-          
+        <div
+          style="background: #F0FDF4; border: 2px solid var(--border-green); border-radius: var(--radius-lg); padding: 20px;">
+          <h3 style="color: var(--primary-dark); margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">✅
+            KrishiSanjivani Direct Model (0 Intermediaries)</h3>
+          <p style="font-size: 0.9rem; color: var(--primary-dark); margin-bottom: 14px;">Farmer Direct → AI Optimized
+            Logistics Hub → Consumer / Bulk Buyer</p>
+
           <div class="price-comparison-bar" style="background: white;">
-            <div class="price-row"><span>Farmer Direct Earnings:</span> <span style="font-weight: 800; color: var(--primary-dark);">₹32 / kg (+60% more!)</span></div>
-            <div class="price-row"><span>Direct AI Transit Fee:</span> <span style="font-weight: 700; color: var(--secondary);">₹3 / kg</span></div>
-            <div class="price-row" style="border-top: 1px dashed var(--border-green); padding-top: 6px; margin-top: 6px;">
+            <div class="price-row"><span>Farmer Direct Earnings:</span> <span
+                style="font-weight: 800; color: var(--primary-dark);">₹32 / kg (+60% more!)</span></div>
+            <div class="price-row"><span>Direct AI Transit Fee:</span> <span
+                style="font-weight: 700; color: var(--secondary);">₹3 / kg</span></div>
+            <div class="price-row"
+              style="border-top: 1px dashed var(--border-green); padding-top: 6px; margin-top: 6px;">
               <span>Consumer Price:</span> <span class="direct-price-highlight">₹35 / kg (Saved 22%)</span>
             </div>
           </div>
@@ -154,7 +194,7 @@
   <!-- 12 Farmer-Friendly Icon Navigation Tiles -->
   <section class="container">
     <h2 class="font-heading" style="font-size: 1.5rem; margin-bottom: 16px;">🚀 Quick Services Dashboard</h2>
-    
+
     <div class="dashboard-grid">
       <a href="pages/weather.html" class="icon-tile-card">
         <div class="tile-icon-wrapper">🌤️</div>
@@ -247,7 +287,8 @@
     <div class="footer-container">
       <div class="footer-col">
         <h4 style="color: var(--primary-light);">🌱 KrishiSanjivani</h4>
-        <p style="font-size: 0.875rem; line-height: 1.6;">Smart India Hackathon 2026 Project.<br>Direct farmer-to-consumer marketplace with AI demand forecasting and route optimization logistics.</p>
+        <p style="font-size: 0.875rem; line-height: 1.6;">Smart India Hackathon 2026 Project.<br>Direct
+          farmer-to-consumer marketplace with AI demand forecasting and route optimization logistics.</p>
       </div>
 
       <div class="footer-col">
@@ -272,7 +313,8 @@
 
       <div class="footer-col">
         <h4>Contact & Helpline</h4>
-        <p style="font-size: 0.875rem;">📞 Kisan Helpline: 1800-180-1551<br>✉️ support@krishisanjivani.gov.in<br>📍 Ministry of Agriculture & SIH 2026 Cell</p>
+        <p style="font-size: 0.875rem;">📞 Kisan Helpline: 1800-180-1551<br>✉️ support@krishisanjivani.gov.in<br>📍
+          Ministry of Agriculture & SIH 2026 Cell</p>
       </div>
     </div>
 
@@ -296,7 +338,7 @@
       // Render featured products
       const products = window.store.getProducts().slice(0, 4);
       const grid = document.getElementById('featured-products-grid');
-      
+
       grid.innerHTML = products.map(p => `
         <div class="product-card">
           <div class="product-img-wrapper">
@@ -332,4 +374,5 @@
     }
   </script>
 </body>
+
 </html>

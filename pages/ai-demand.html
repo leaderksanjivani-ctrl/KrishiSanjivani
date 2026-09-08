@@ -43,6 +43,7 @@
       </ul>
 
       <div class="navbar-actions">
+        <button class="navbar-hamburger" id="nav-toggle-btn" aria-label="Toggle navigation">☰</button>
         <select class="lang-selector-btn" onchange="window.i18n.setLanguage(this.value)">
           <option value="en">🌐 EN</option>
           <option value="hi">🇮🇳 HI</option>
@@ -75,7 +76,7 @@
     </div>
 
     <!-- AI Prediction Output Card & Graph -->
-    <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 20px; margin-bottom: 24px;">
+    <div class="grid-2-1" style="margin-bottom: 24px;">
       
       <!-- Chart.js Graph -->
       <div class="card" style="box-shadow: var(--shadow-md);">

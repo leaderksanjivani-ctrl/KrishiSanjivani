@@ -41,6 +41,7 @@
       </ul>
 
       <div class="navbar-actions">
+        <button class="navbar-hamburger" id="nav-toggle-btn" aria-label="Toggle navigation">☰</button>
         <select class="lang-selector-btn" onchange="window.i18n.setLanguage(this.value)">
           <option value="en">🌐 EN</option>
           <option value="hi">🇮🇳 HI</option>
@@ -101,7 +102,7 @@
           </div>
 
           <!-- Status Timeline Bar -->
-          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; text-align: center; margin-bottom: 20px; background: #F8FAFC; padding: 16px; border-radius: var(--radius-md);">
+          <div class="status-timeline-grid" style="margin-bottom: 20px;">
             <div style="color: var(--primary-dark); font-weight: 700;">
               <div style="font-size: 1.4rem;">📝</div>
               <div style="font-size: 0.8rem;">Placed</div>
