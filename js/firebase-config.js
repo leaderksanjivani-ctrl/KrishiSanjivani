@@ -2,35 +2,87 @@
    KRISHISANJIVANI - FIREBASE & DATABASE CONFIGURATION (SIH 2026)
    ========================================================================== */
 
-// Firebase Configuration (Loaded from .env / console)
+// Firebase Configuration - using project keys directly
 const firebaseConfig = {
-  apiKey: (typeof window !== 'undefined' && window.ENV && window.ENV.FIREBASE_API_KEY) || "AIzaSyD54FeG00c4_eIH1VBK9iVu9NiAslM0fRI",
-  authDomain: (typeof window !== 'undefined' && window.ENV && window.ENV.FIREBASE_AUTH_DOMAIN) || "krishisanjivani-b06f6.firebaseapp.com",
-  projectId: (typeof window !== 'undefined' && window.ENV && window.ENV.FIREBASE_PROJECT_ID) || "krishisanjivani-b06f6",
-  storageBucket: (typeof window !== 'undefined' && window.ENV && window.ENV.FIREBASE_STORAGE_BUCKET) || "krishisanjivani-b06f6.firebasestorage.app",
-  messagingSenderId: (typeof window !== 'undefined' && window.ENV && window.ENV.FIREBASE_MESSAGING_SENDER_ID) || "566300747155",
-  appId: (typeof window !== 'undefined' && window.ENV && window.ENV.FIREBASE_APP_ID) || "1:566300747155:web:c8ea14cd81c93ff5a8b466",
-  measurementId: (typeof window !== 'undefined' && window.ENV && window.ENV.FIREBASE_MEASUREMENT_ID) || "G-5QWBNR993P"
+  apiKey: "AIzaSyD54FeG00c4_eIH1VBK9iVu9NiAslM0fRI",
+  authDomain: "krishisanjivani-b06f6.firebaseapp.com",
+  projectId: "krishisanjivani-b06f6",
+  storageBucket: "krishisanjivani-b06f6.firebasestorage.app",
+  messagingSenderId: "566300747155",
+  appId: "1:566300747155:web:c8ea14cd81c93ff5a8b466",
+  measurementId: "G-5QWBNR993P"
 };
 
-// Expose configuration object globally
 window.firebaseConfig = firebaseConfig;
 window.isFirebaseConfigured = false;
 
-try {
-  if (typeof firebase !== 'undefined' && firebase.initializeApp && firebaseConfig.apiKey && firebaseConfig.apiKey !== "YOUR_FIREBASE_API_KEY") {
-    firebase.initializeApp(firebaseConfig);
-    window.db = firebase.firestore();
-    window.auth = firebase.auth();
-    window.storage = firebase.storage();
-    if (firebase.analytics) {
-      window.analytics = firebase.analytics();
-    }
-    window.isFirebaseConfigured = true;
-    console.log("🔥 Firebase initialized successfully with project:", firebaseConfig.projectId);
-  } else {
-    console.log("ℹ️ Running in Local Storage / Mock Firestore mode (Demo Ready).");
+// Dynamically load Firebase SDK if not already present, then initialize
+(function loadFirebaseSDK() {
+  // If already loaded (e.g. login.html already includes them), initialize immediately
+  if (typeof firebase !== 'undefined') {
+    initFirebase();
+    return;
   }
-} catch (e) {
-  console.warn("Firebase initialization warning (Using local state fallback):", e);
+
+  const FIREBASE_VERSION = '9.23.0';
+  const BASE = `https://www.gstatic.com/firebasejs/${FIREBASE_VERSION}`;
+
+  const scripts = [
+    BASE + '/firebase-app-compat.js',
+    BASE + '/firebase-auth-compat.js',
+    BASE + '/firebase-firestore-compat.js',
+    BASE + '/firebase-storage-compat.js',
+  ];
+
+  let loadedCount = 0;
+
+  function onScriptLoad() {
+    loadedCount++;
+    if (loadedCount === scripts.length) {
+      initFirebase();
+    }
+  }
+
+  scripts.forEach(function(src) {
+    // Skip if this script is already on the page
+    if (document.querySelector(`script[src="${src}"]`)) {
+      loadedCount++;
+      if (loadedCount === scripts.length) initFirebase();
+      return;
+    }
+    const s = document.createElement('script');
+    s.src = src;
+    s.async = false;
+    s.onload = onScriptLoad;
+    s.onerror = function() {
+      console.error('Failed to load Firebase SDK from:', src);
+      loadedCount++;
+      if (loadedCount === scripts.length) initFirebase();
+    };
+    document.head.appendChild(s);
+  });
+})();
+
+function initFirebase() {
+  try {
+    if (typeof firebase !== 'undefined' && firebase.initializeApp) {
+      if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+      } else {
+        firebase.app(); // use existing app
+      }
+      window.db = firebase.firestore();
+      window.auth = firebase.auth();
+      window.storage = firebase.storage();
+      window.isFirebaseConfigured = true;
+      console.log('🔥 Firebase initialized with project:', firebaseConfig.projectId);
+
+      // Notify any waiting listeners
+      document.dispatchEvent(new CustomEvent('firebaseReady'));
+    } else {
+      console.warn('Firebase SDK not available after loading attempt.');
+    }
+  } catch (e) {
+    console.warn('Firebase initialization error:', e);
+  }
 }

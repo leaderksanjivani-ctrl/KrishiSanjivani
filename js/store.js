@@ -202,14 +202,15 @@ class DataStore {
       localStorage.setItem('krishi_orders', JSON.stringify([]));
     }
     if (!localStorage.getItem('krishi_user')) {
-      localStorage.setItem('krishi_user', JSON.stringify({
-        name: "Ramesh Patil",
-        phone: "+91 98230 11223",
-        village: "Mohol, Solapur",
-        role: "Farmer",
-        isLoggedIn: true,
-        fpoGroup: "Solapur Organic Farmers Producer Co."
-      }));
+      localStorage.setItem('krishi_user', JSON.stringify({ isLoggedIn: false }));
+    } else {
+      // Migration: clear stale mock sessions (had isLoggedIn:true but no uid = old mock user)
+      try {
+        const storedUser = JSON.parse(localStorage.getItem('krishi_user'));
+        if (storedUser && storedUser.isLoggedIn && !storedUser.uid && !storedUser.isAdmin) {
+          localStorage.setItem('krishi_user', JSON.stringify({ isLoggedIn: false }));
+        }
+      } catch(e) { /* ignore parse errors */ }
     }
   }
 

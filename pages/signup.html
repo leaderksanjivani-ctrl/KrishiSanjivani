@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Account – KrishiSanjivani | Farmer Portal</title>
+  <meta name="description" content="Create your KrishiSanjivani account – India's unified agriculture platform for farmers, consumers and bulk buyers. Register with email or Google.">
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌱</text></svg>">
+  <style>
+    /* ── Auth Page Styles ─────────────────────────────────────────── */
+    body {
+      background: linear-gradient(135deg, #0f2712 0%, #14532D 35%, #1a6b38 65%, #0d3d1a 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .auth-page-wrap {
+      flex: 1;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 28px 16px 40px;
+    }
+
+    .auth-card {
+      width: 100%;
+      max-width: 500px;
+      background: rgba(255, 255, 255, 0.97);
+      backdrop-filter: blur(20px);
+      border-radius: 24px;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.35), 0 0 0 1px rgba(255,255,255,0.1);
+      overflow: hidden;
+      animation: slideUp 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .auth-card-header {
+      background: linear-gradient(135deg, #14532D 0%, #15803D 60%, #22C55E 100%);
+      padding: 28px 36px 24px;
+      text-align: center;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .auth-card-header::before {
+      content: '';
+      position: absolute;
+      top: -40px; right: -40px;
+      width: 140px; height: 140px;
+      background: rgba(255,255,255,0.07);
+      border-radius: 50%;
+    }
+
+    .auth-card-header::after {
+      content: '';
+      position: absolute;
+      bottom: -30px; left: -30px;
+      width: 100px; height: 100px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 50%;
+    }
+
+    .auth-logo {
+      font-size: 2.6rem;
+      margin-bottom: 6px;
+      display: block;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+      position: relative;
+      z-index: 1;
+    }
+
+    .auth-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.55rem;
+      font-weight: 800;
+      color: white;
+      margin-bottom: 4px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .auth-subtitle {
+      font-size: 0.86rem;
+      color: rgba(255,255,255,0.8);
+      font-weight: 500;
+      position: relative;
+      z-index: 1;
+    }
+
+    .auth-card-body {
+      padding: 24px 32px 32px;
+    }
+
+    /* Status Alert */
+    #auth-alert {
+      display: none;
+      padding: 12px 16px;
+      border-radius: 10px;
+      margin-bottom: 18px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      line-height: 1.5;
+    }
+
+    #auth-alert.success {
+      background: #DCFCE7;
+      color: #14532D;
+      border: 1px solid #86EFAC;
+    }
+
+    #auth-alert.error {
+      background: #FEE2E2;
+      color: #991B1B;
+      border: 1px solid #FCA5A5;
+    }
+
+    #auth-alert.info {
+      background: #EFF6FF;
+      color: #1E40AF;
+      border: 1px solid #BFDBFE;
+    }
+
+    /* Form Styles */
+    .auth-form-group {
+      margin-bottom: 15px;
+    }
+
+    .auth-label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #374151;
+      margin-bottom: 6px;
+    }
+
+    .auth-input {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1.5px solid #E2E8F0;
+      border-radius: 10px;
+      font-size: 0.97rem;
+      color: #0F172A;
+      background: #F8FAFC;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .auth-input:focus {
+      border-color: #16A34A;
+      box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.12);
+      background: white;
+    }
+
+    .auth-input.error-field {
+      border-color: #EF4444;
+      box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+    }
+
+    .auth-input.valid-field {
+      border-color: #22C55E;
+    }
+
+    select.auth-input {
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      background-size: 18px;
+      padding-right: 36px;
+    }
+
+    .input-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .phone-row {
+      display: flex;
+      gap: 8px;
+    }
+
+    .phone-prefix {
+      background: #F1F5F9;
+      border: 1.5px solid #E2E8F0;
+      padding: 12px 14px;
+      border-radius: 10px;
+      font-weight: 700;
+      color: #374151;
+      font-size: 0.9rem;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Password strength indicator */
+    .password-strength {
+      margin-top: 6px;
+      display: flex;
+      gap: 4px;
+      align-items: center;
+    }
+
+    .strength-bar {
+      height: 4px;
+      flex: 1;
+      border-radius: 4px;
+      background: #E2E8F0;
+      transition: background 0.3s;
+    }
+
+    .strength-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #94A3B8;
+      min-width: 44px;
+      text-align: right;
+    }
+
+    /* Buttons */
+    .auth-btn-primary {
+      width: 100%;
+      padding: 13px 20px;
+      background: linear-gradient(135deg, #15803D, #16A34A);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 8px;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .auth-btn-primary:hover:not(:disabled) {
+      background: linear-gradient(135deg, #14532D, #15803D);
+      box-shadow: 0 4px 14px rgba(21, 128, 61, 0.4);
+      transform: translateY(-1px);
+    }
+
+    .auth-btn-primary:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .auth-btn-secondary {
+      width: 100%;
+      padding: 12px 20px;
+      background: white;
+      color: #374151;
+      border: 1.5px solid #E2E8F0;
+      border-radius: 10px;
+      font-size: 0.97rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .auth-btn-secondary:hover {
+      border-color: #16A34A;
+      background: #F0FDF4;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    .auth-divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 18px 0;
+    }
+
+    .auth-divider-line {
+      flex: 1;
+      height: 1px;
+      background: #E2E8F0;
+    }
+
+    .auth-divider-text {
+      font-size: 0.8rem;
+      color: #94A3B8;
+      font-weight: 600;
+    }
+
+    .auth-footer-text {
+      text-align: center;
+      font-size: 0.85rem;
+      color: #64748B;
+      margin-top: 20px;
+    }
+
+    .auth-footer-text a {
+      color: #16A34A;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .auth-footer-text a:hover {
+      text-decoration: underline;
+    }
+
+    /* Terms Note */
+    .terms-note {
+      font-size: 0.78rem;
+      color: #94A3B8;
+      text-align: center;
+      margin-top: 12px;
+      line-height: 1.5;
+    }
+
+    /* Role Cards */
+    .role-selector {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .role-card {
+      border: 2px solid #E2E8F0;
+      border-radius: 10px;
+      padding: 10px 6px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.18s ease;
+      background: #F8FAFC;
+    }
+
+    .role-card:hover {
+      border-color: #22C55E;
+      background: #F0FDF4;
+    }
+
+    .role-card.selected {
+      border-color: #16A34A;
+      background: #DCFCE7;
+    }
+
+    .role-card input[type="radio"] {
+      display: none;
+    }
+
+    .role-emoji {
+      font-size: 1.5rem;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .role-name {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #374151;
+    }
+
+    .role-card.selected .role-name {
+      color: #14532D;
+    }
+
+    /* Setup Banner */
+    .setup-banner {
+      background: #FFF7ED;
+      border: 1px solid #FED7AA;
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin-bottom: 14px;
+      font-size: 0.82rem;
+      color: #92400E;
+      line-height: 1.6;
+    }
+
+    .setup-banner strong {
+      color: #78350F;
+    }
+
+    /* Responsive */
+    @media (max-width: 520px) {
+      .auth-card-body { padding: 20px 20px 28px; }
+      .auth-card-header { padding: 22px 20px 18px; }
+      .input-row { grid-template-columns: 1fr; gap: 0; }
+      .role-selector { grid-template-columns: repeat(3, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Govt Top Strip -->
+  <header class="govt-banner-strip">
+    <div class="govt-banner-left">
+      <span class="govt-emblem-badge">SIH 2026</span>
+      <span>Smart India Hackathon 2026 | Farmer Registration Portal</span>
+    </div>
+    <div class="govt-banner-right">
+      <a href="../index.html" style="color: white; text-decoration: underline; font-size: 0.825rem;">← Back to Home</a>
+    </div>
+  </header>
+
+  <div class="auth-page-wrap">
+    <div class="auth-card">
+
+      <!-- Card Header -->
+      <div class="auth-card-header">
+        <span class="auth-logo">🌱</span>
+        <h1 class="auth-title">Create Your Account</h1>
+        <p class="auth-subtitle">Join KrishiSanjivani – India's Unified Agriculture Portal</p>
+      </div>
+
+      <!-- Card Body -->
+      <div class="auth-card-body">
+
+        <!-- Status Alert -->
+        <div id="auth-alert" role="alert" aria-live="polite"></div>
+
+        <!-- Setup Banner (hidden by default) -->
+        <div class="setup-banner" id="setup-banner" style="display:none;">
+          ⚠️ <strong>Setup Required:</strong> Email/Password sign-in is disabled in this Firebase project.
+          Go to <a href="https://console.firebase.google.com" target="_blank" rel="noopener" style="color:#78350F;font-weight:700;">Firebase Console</a>
+          → Authentication → Sign-in method → Enable <strong>Email/Password</strong>.
+        </div>
+
+        <!-- ── REGISTRATION FORM ───────────────────────────────────── -->
+        <form id="form-signup" onsubmit="handleSignup(event)" novalidate>
+
+          <!-- Name -->
+          <div class="auth-form-group">
+            <label class="auth-label" for="input-name">Full Name</label>
+            <input
+              type="text"
+              id="input-name"
+              class="auth-input"
+              placeholder="e.g., Ramesh Patil"
+              required
+              minlength="2"
+              autocomplete="name"
+            >
+          </div>
+
+          <!-- Email + Phone Row -->
+          <div class="input-row">
+            <div class="auth-form-group">
+              <label class="auth-label" for="input-email">Email Address</label>
+              <input
+                type="email"
+                id="input-email"
+                class="auth-input"
+                placeholder="you@example.com"
+                required
+                autocomplete="email"
+              >
+            </div>
+            <div class="auth-form-group">
+              <label class="auth-label" for="input-phone">Mobile Number (Optional)</label>
+              <input
+                type="tel"
+                id="input-phone"
+                class="auth-input"
+                placeholder="9876543210"
+                pattern="[0-9]{10}"
+                maxlength="10"
+                inputmode="numeric"
+                autocomplete="tel"
+              >
+            </div>
+          </div>
+
+          <!-- Password + Confirm Row -->
+          <div class="input-row">
+            <div class="auth-form-group">
+              <label class="auth-label" for="input-password">Password</label>
+              <input
+                type="password"
+                id="input-password"
+                class="auth-input"
+                placeholder="Min. 6 characters"
+                required
+                minlength="6"
+                oninput="updatePasswordStrength(this.value)"
+                autocomplete="new-password"
+              >
+              <div class="password-strength">
+                <div class="strength-bar" id="strength-bar-1"></div>
+                <div class="strength-bar" id="strength-bar-2"></div>
+                <div class="strength-bar" id="strength-bar-3"></div>
+                <div class="strength-bar" id="strength-bar-4"></div>
+                <span class="strength-label" id="strength-label">—</span>
+              </div>
+            </div>
+            <div class="auth-form-group">
+              <label class="auth-label" for="input-confirm-password">Confirm Password</label>
+              <input
+                type="password"
+                id="input-confirm-password"
+                class="auth-input"
+                placeholder="Re-enter password"
+                required
+                autocomplete="new-password"
+              >
+            </div>
+          </div>
+
+          <!-- Role Selector -->
+          <div class="auth-form-group">
+            <label class="auth-label">I am a…</label>
+            <div class="role-selector" id="role-selector">
+              <label class="role-card selected" id="role-card-farmer">
+                <input type="radio" name="role" value="Farmer" checked onchange="selectRole('farmer')">
+                <span class="role-emoji">👨‍🌾</span>
+                <span class="role-name">Farmer</span>
+              </label>
+              <label class="role-card" id="role-card-consumer">
+                <input type="radio" name="role" value="Consumer" onchange="selectRole('consumer')">
+                <span class="role-emoji">🛒</span>
+                <span class="role-name">Consumer</span>
+              </label>
+              <label class="role-card" id="role-card-buyer">
+                <input type="radio" name="role" value="Bulk Buyer" onchange="selectRole('buyer')">
+                <span class="role-emoji">🏪</span>
+                <span class="role-name">Bulk Buyer</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Submit -->
+          <button type="submit" id="btn-signup" class="auth-btn-primary">
+            <span>🚀</span> <span>Create My Account</span>
+          </button>
+
+          <p class="terms-note">
+            By creating an account, you agree to our terms of service.<br>
+            Your data is protected under India's DPDP Act 2023.
+          </p>
+
+        </form>
+
+        <!-- Divider -->
+        <div class="auth-divider">
+          <div class="auth-divider-line"></div>
+          <span class="auth-divider-text">OR SIGN UP WITH</span>
+          <div class="auth-divider-line"></div>
+        </div>
+
+        <!-- Google Sign-Up -->
+        <button id="btn-google" class="auth-btn-secondary" onclick="handleGoogleSignup()">
+          <img
+            src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+            alt="Google"
+            width="20"
+            height="20"
+          >
+          <span>Continue with Google</span>
+        </button>
+
+        <!-- Footer -->
+        <p class="auth-footer-text">
+          Already have an account?
+          <a href="login.html" id="link-to-login">Login here →</a>
+        </p>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="../js/firebase-config.js"></script>
+  <script src="../js/i18n.js"></script>
+  <script src="../js/store.js"></script>
+  <script src="../js/auth.js"></script>
+  <script>
+    // Expose alert globally for auth.js redirect handler
+    window.showAuthAlert = showAlert;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const redirectPending = sessionStorage.getItem('google_redirect_pending');
+      if (redirectPending) {
+        showAlert('⏳ Completing Google sign-up…', 'info');
+        sessionStorage.removeItem('google_redirect_pending');
+      }
+    });
+
+    // ── Alert Helpers ─────────────────────────────────────────────────
+    function showAlert(msg, type = 'success') {
+      const el = document.getElementById('auth-alert');
+      el.className = type;
+      el.innerHTML = msg;
+      el.style.display = 'block';
+      el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function hideAlert() {
+      document.getElementById('auth-alert').style.display = 'none';
+    }
+
+    // ── Role Selector ─────────────────────────────────────────────────
+    function selectRole(role) {
+      ['farmer', 'consumer', 'buyer'].forEach(r => {
+        document.getElementById(`role-card-${r}`).classList.remove('selected');
+      });
+      document.getElementById(`role-card-${role}`).classList.add('selected');
+    }
+
+    // ── Password Strength ─────────────────────────────────────────────
+    function updatePasswordStrength(val) {
+      let score = 0;
+      if (val.length >= 6)  score++;
+      if (val.length >= 10) score++;
+      if (/[A-Z]/.test(val) && /[a-z]/.test(val)) score++;
+      if (/[0-9]/.test(val) && /[^A-Za-z0-9]/.test(val)) score++;
+
+      const colors = ['', '#EF4444', '#F97316', '#EAB308', '#22C55E'];
+      const labels = ['', 'Weak', 'Fair', 'Good', 'Strong'];
+
+      for (let i = 1; i <= 4; i++) {
+        const bar = document.getElementById(`strength-bar-${i}`);
+        bar.style.background = i <= score ? colors[score] : '#E2E8F0';
+      }
+      document.getElementById('strength-label').textContent = labels[score] || '—';
+      document.getElementById('strength-label').style.color = colors[score] || '#94A3B8';
+    }
+
+    // ── Form Validation Helper ────────────────────────────────────────
+    function validateFields() {
+      const name = document.getElementById('input-name').value.trim();
+      const email = document.getElementById('input-email').value.trim();
+      const password = document.getElementById('input-password').value;
+      const confirmPass = document.getElementById('input-confirm-password').value;
+      const phone = document.getElementById('input-phone').value.trim();
+
+      if (!name || name.length < 2) {
+        showAlert('❌ Please enter your full name (at least 2 characters).', 'error');
+        document.getElementById('input-name').focus();
+        return null;
+      }
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        showAlert('❌ Please enter a valid email address.', 'error');
+        document.getElementById('input-email').focus();
+        return null;
+      }
+      if (password.length < 6) {
+        showAlert('❌ Password must be at least 6 characters long.', 'error');
+        document.getElementById('input-password').focus();
+        return null;
+      }
+      if (password !== confirmPass) {
+        showAlert('❌ Passwords do not match. Please re-enter.', 'error');
+        document.getElementById('input-confirm-password').focus();
+        return null;
+      }
+      if (phone && !/^\d{10}$/.test(phone)) {
+        showAlert('❌ Please enter a valid 10-digit mobile number (or leave it blank).', 'error');
+        document.getElementById('input-phone').focus();
+        return null;
+      }
+
+      const roleEl = document.querySelector('input[name="role"]:checked');
+      const role = roleEl ? roleEl.value : 'Farmer';
+
+      return { name, email, password, role, phone };
+    }
+
+    // ── Signup Handler ────────────────────────────────────────────────
+    async function handleSignup(e) {
+      e.preventDefault();
+      hideAlert();
+
+      const data = validateFields();
+      if (!data) return;
+
+      const btn = document.getElementById('btn-signup');
+      btn.disabled = true;
+      btn.innerHTML = '<span>⏳</span> <span>Creating account…</span>';
+
+      try {
+        await window.authManager.registerWithEmail(data.name, data.email, data.password, data.role);
+        showAlert('✅ Account created! Redirecting to your dashboard…', 'success');
+        // Redirect handled by auth.js handleLoginSuccess
+      } catch (err) {
+        const msg = err.message || '';
+        showAlert('❌ ' + msg, 'error');
+
+        if (msg.includes('disabled') || msg.includes('not-allowed')) {
+          document.getElementById('setup-banner').style.display = 'block';
+        }
+        if (msg.includes('already exists') || msg.includes('already-in-use')) {
+          showAlert(
+            `❌ ${msg} <a href="login.html" style="color:#1E40AF;font-weight:700;">Login instead →</a>`,
+            'error'
+          );
+        }
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<span>🚀</span> <span>Create My Account</span>';
+      }
+    }
+
+    // ── Google Signup Handler ─────────────────────────────────────────
+    async function handleGoogleSignup() {
+      const btn = document.getElementById('btn-google');
+      btn.disabled = true;
+      btn.innerHTML = '<span>⏳</span> <span>Redirecting to Google…</span>';
+      showAlert('🔗 Redirecting to Google…', 'info');
+
+      sessionStorage.setItem('google_redirect_pending', '1');
+
+      try {
+        await window.authManager.loginWithGoogle();
+        // Page will redirect to Google
+      } catch (err) {
+        sessionStorage.removeItem('google_redirect_pending');
+        showAlert('❌ ' + err.message, 'error');
+        if (err.message.includes('disabled') || err.message.includes('not-allowed')) {
+          showAlert(
+            '❌ Google Sign-In is disabled. Go to <a href="https://console.firebase.google.com" target="_blank" style="color:#1E40AF;">Firebase Console</a> → Authentication → Sign-in method → Enable <strong>Google</strong>.',
+            'error'
+          );
+        }
+        btn.disabled = false;
+        btn.innerHTML = `
+          <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" width="20" height="20">
+          <span>Continue with Google</span>`;
+      }
+    }
+  </script>
+</body>
+</html>
